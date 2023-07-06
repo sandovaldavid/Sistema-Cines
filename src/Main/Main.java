@@ -4,6 +4,13 @@
  */
 package Main;
 
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatGrayIJTheme;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author Sando
@@ -11,6 +18,15 @@ package Main;
 public class Main {
 
     public static void main(String[] args) {
-
+        try {
+            MenuPrincipal menupricipal = new MenuPrincipal();
+            menupricipal.setVisible(true);
+            menupricipal.setLocationRelativeTo(null);
+            //FlatLightFlatIJTheme.setup();
+            FlatGrayIJTheme.setup();
+            UIManager.setLookAndFeel(new FlatArcIJTheme());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
