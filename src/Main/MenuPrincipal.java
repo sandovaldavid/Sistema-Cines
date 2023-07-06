@@ -6,7 +6,9 @@ package Main;
 
 /**
  *
- * @author Sando
+ * @author David Sandoval Salvador
+ * @E-mail sandovaldavid2201@gmail.com
+ * 
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 

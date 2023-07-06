@@ -6,7 +6,9 @@ package Sala;
 
 /**
  *
- * @author Sando
+ * @author David Sandoval Salvador
+ * @E-mail sandovaldavid2201@gmail.com
+ * 
  */
 public class Sala {
     
