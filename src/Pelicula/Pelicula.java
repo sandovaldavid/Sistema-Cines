@@ -4,10 +4,15 @@
  */
 package Pelicula;
 
+import Archivo.Archivo;
+
 /**
  *
  * @author Sando
  */
-public class Pelicula {
-    
+public class Pelicula extends Archivo {
+
+    public Pelicula(String NombreArchivo, String Extension) {
+        super(NombreArchivo, Extension);
+    }
 }

@@ -4,10 +4,15 @@
  */
 package Sala;
 
+import Archivo.Archivo;
+
 /**
  *
  * @author Sando
  */
-public class Sala {
-    
+public class Sala extends Archivo {
+
+    public Sala(String NombreArchivo, String Extension) {
+        super(NombreArchivo, Extension);
+    }
 }

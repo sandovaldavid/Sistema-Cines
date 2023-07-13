@@ -4,10 +4,15 @@
  */
 package Proyeccion;
 
+import Archivo.Archivo;
+
 /**
  *
  * @author Sando
  */
-public class Proyeccion {
-    
+public class Proyeccion extends Archivo {
+
+    public Proyeccion(String NombreArchivo, String Extension) {
+        super(NombreArchivo, Extension);
+    }
 }

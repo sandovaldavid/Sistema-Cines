@@ -4,7 +4,18 @@
  */
 package Main;
 
+import Archivo.Archivo;
+import Cine.Actualizacion.Eliminar;
+import Cine.Actualizacion.Listado;
+import Cine.Actualizacion.Registrar;
+import Cine.Cine;
+import Pelicula.Pelicula;
+import Proyeccion.Proyeccion;
+import Sala.Sala;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -14,9 +25,52 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Sistema_Cines
-     */
+    private static Archivo[] archivos;
+    private static Cine cine;
+    private static Sala sala;
+    private static Pelicula pelicula;
+    private static Proyeccion proyeccion;
+
+    public static Archivo[] getArchivos() {
+        return archivos;
+    }
+
+    public static void setArchivos(Archivo[] archivos) {
+        MenuPrincipal.archivos = archivos;
+    }
+
+    public static Cine getCine() {
+        return cine;
+    }
+
+    public static void setCine(Cine cine) {
+        MenuPrincipal.cine = cine;
+    }
+
+    public static Sala getSala() {
+        return sala;
+    }
+
+    public static void setSala(Sala sala) {
+        MenuPrincipal.sala = sala;
+    }
+
+    public static Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public static void setPelicula(Pelicula pelicula) {
+        MenuPrincipal.pelicula = pelicula;
+    }
+
+    public static Proyeccion getProyeccion() {
+        return proyeccion;
+    }
+
+    public static void setProyeccion(Proyeccion proyeccion) {
+        MenuPrincipal.proyeccion = proyeccion;
+    }
+
     public MenuPrincipal() {
         initComponents();
 
@@ -38,8 +92,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ActualizarCine = new javax.swing.JMenu();
         RegistrarCine = new javax.swing.JMenuItem();
         EliminarCine = new javax.swing.JMenuItem();
+        ListarCine = new javax.swing.JMenuItem();
         MantenimientoCine = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -97,13 +151,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         ActualizarCine.add(EliminarCine);
 
+        ListarCine.setText("Listar");
+        ListarCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarCineActionPerformed(evt);
+            }
+        });
+        ActualizarCine.add(ListarCine);
+
         jMenu1.add(ActualizarCine);
 
         MantenimientoCine.setText("Mantenimiento");
-
-        jMenuItem5.setText("jMenuItem5");
-        MantenimientoCine.add(jMenuItem5);
-
         jMenu1.add(MantenimientoCine);
 
         jMenuBar1.add(jMenu1);
@@ -138,13 +196,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuBar1MouseMoved
 
     private void EliminarCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCineActionPerformed
-
+        Eliminar ic = new Eliminar();
+        Escritorio.add(ic);
+        ic.show();
     }//GEN-LAST:event_EliminarCineActionPerformed
 
     private void RegistrarCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarCineActionPerformed
-
-
+        Registrar ic = new Registrar();
+        Escritorio.add(ic);
+        ic.show();
     }//GEN-LAST:event_RegistrarCineActionPerformed
+
+    private void ListarCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarCineActionPerformed
+        Listado ic = new Listado();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ListarCineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,6 +223,48 @@ public class MenuPrincipal extends javax.swing.JFrame {
             MenuPrincipal v = new MenuPrincipal();
             v.setVisible(true);
             v.setLocationRelativeTo(null);
+
+            archivos = new Archivo[4];
+            setCine(new Cine("Cines", "dat"));
+            sala = new Sala("Salas", "dat");
+            pelicula = new Pelicula("Peliculas", "dat");
+            proyeccion = new Proyeccion("Proyecciones", "dat");
+
+            archivos[0] = cine;
+            archivos[1] = sala;
+            archivos[2] = pelicula;
+            archivos[3] = proyeccion;
+
+            int i = 0;
+            while (i < 1) {
+                try {
+                    archivos[i].CrearArchivo();
+                    switch (i) {
+                        case 0 -> {
+                            archivos[i].getCab().setTamañoRegistro(cine.getSize());
+                            break;
+                        }
+//                        case 1 -> {
+//                            archivos[i].getCab().setTamañoRegistro(sala.getSize());
+//                            break;
+//                        }
+//                        case 2 -> {
+//                            [i].getCab().setTamañoRegistro(pelicula.getSize());
+//                            break;
+//                        }
+//                        case 3 -> {
+//                            archivos[i].getCab().setTamañoRegistro(proyeccion.getSize());
+//                            break;
+//                        }
+                    }
+                    archivos[i].getCab().setIA(archivos[i].getIA());
+                    archivos[i].getCab().Posicionar();
+                    archivos[i].getCab().Escribir();
+                    i++;
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         });
 
     }
@@ -164,6 +273,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu ActualizarCine;
     private javax.swing.JMenuItem EliminarCine;
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem ListarCine;
     private javax.swing.JMenu MantenimientoCine;
     private javax.swing.JMenuItem RegistrarCine;
     private javax.swing.JDialog jDialog1;
@@ -172,6 +282,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }
