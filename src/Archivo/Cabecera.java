@@ -17,7 +17,7 @@ public class Cabecera {
     private int numeroRegistros;                //4 bytes
     private int numeroRegistrosEliminados;      //4 bytes
     private int tamañoRegistro;                 //4 bytes
-    private byte compactado;                     // 1 byte
+    private byte compactado;                    //1 byte
 
     public Cabecera() {
         this.numeroRegistros = 0;
@@ -71,7 +71,7 @@ public class Cabecera {
     }
 
     public int getSize() {
-        return 12;
+        return 13;
     }
 
     public void Posicionar() throws IOException {
@@ -82,11 +82,13 @@ public class Cabecera {
         getIA().writeInt(getNumeroRegistros());
         getIA().writeInt(getNumeroRegistrosEliminados());
         getIA().writeInt(getTamañoRegistro());
+        getIA().writeByte(getCompactado());
     }
 
     public void Leer() throws IOException {
         setNumeroRegistros(getIA().readInt());
         setNumeroRegistrosEliminados(getIA().readInt());
         setTamañoRegistro(getIA().readInt());
+        setCompactado(getIA().readByte());
     }
 }
