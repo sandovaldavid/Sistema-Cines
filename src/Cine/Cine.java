@@ -6,6 +6,7 @@ package Cine;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -180,4 +181,34 @@ public class Cine extends Archivo.Archivo {
     public long FragmentacionExterna2() {
         return getCab().getNumeroRegistros() * getSize();
     }
+
+    @Override
+    public long FragmentacionInterna() throws IOException {
+        boolean flag = true;
+        long totalbytes = 0;
+        Posicionar(0);
+        while (flag) {
+            try {
+                Leer();
+                Cine c = new Cine(getNombre(), getCiudad(), getDireccion());
+                if (c.getActivo() == 1) {
+                    byte[] bytes = c.getNombre().getBytes(StandardCharsets.UTF_8);
+                    int numBytes = bytes.length;
+
+                    byte[] bytes1 = c.getCiudad().getBytes(StandardCharsets.UTF_8);
+                    int numBytes1 = bytes1.length;
+
+                    byte[] bytes2 = c.getDireccion().getBytes(StandardCharsets.UTF_8);
+                    int numBytes2 = bytes2.length;
+
+                    totalbytes = totalbytes + numBytes + numBytes1 + numBytes2;
+
+                }
+            } catch (EOFException ex) {
+                flag = false;
+            }
+        }
+        return (getCab().getNumeroRegistros() * (getSize() - 1) - totalbytes);
+    }
+
 }
