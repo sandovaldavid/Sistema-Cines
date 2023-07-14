@@ -6,7 +6,9 @@ package Cine;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -211,4 +213,47 @@ public class Cine extends Archivo.Archivo {
         return (getCab().getNumeroRegistros() * (getSize() - 1) - totalbytes);
     }
 
+    public void CompactacionCopia() throws IOException {
+        boolean flag = true;
+        RandomAccessFile auxIA;
+        Cerrar();
+        ReadModeIA();
+        Cine c = new Cine("Cines", "tmp");
+        c.CrearArchivo();
+        c.Cerrar();
+        c.ReadWriteModeIA();
+        auxIA = getIA();
+        Posicionar(0);
+        c.getCab().setTamañoRegistro(getSize());
+        c.Posicionar(0);
+        try {
+            Leer();
+        } catch (EOFException ex) {
+            flag = false;
+        }
+        while (flag) {
+            try {
+                if (getActivo() == 1) {
+                    setIA(c.getIA());
+                    Escribir();
+                }
+                setIA(auxIA);
+                Leer();
+            } catch (EOFException ex) {
+                flag = false;
+                JOptionPane.showMessageDialog(null, "Compactacion lista.");
+            }
+        }
+
+        c.getCab().setNumeroRegistros(getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        c.getCab().setCompactado((byte) 1);
+        c.getCab().setIA(c.getIA());
+        c.getCab().Posicionar();
+        c.getCab().Escribir();
+        Cerrar();
+        c.Cerrar();
+        getFile().delete();
+        c.getFile().renameTo(getFile());
+        ReadWriteModeIA();
+    }
 }
