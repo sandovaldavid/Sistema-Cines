@@ -115,4 +115,11 @@ public class Archivo {
 
     }
 
+    public long FragmentacionExterna1() throws IOException {
+        return -1;
+    }
+
+    public long FragmentacionExterna2() throws IOException {
+        return -1;
+    }
 }
