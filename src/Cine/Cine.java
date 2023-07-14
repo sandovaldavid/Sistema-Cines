@@ -4,6 +4,7 @@
  */
 package Cine;
 
+import Archivo.Cabecera;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -317,6 +318,79 @@ public class Cine extends Archivo.Archivo {
         c.getCab().Escribir();
         Cerrar();
         c.Cerrar();
+        ReadWriteModeIA();
+        getCab().setIA(getIA());
+    }
+
+    public void posicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
+        setNRR_Eliminado(getCab().getNRR_Eliminado());
+        getCab().setNRR_Eliminado(NRR_Eliminado);
+        getCab().Posicionar();
+        getCab().Escribir();
+        Posicionar(NRR_Eliminado);
+    }
+
+    public long busquedaBinaria(String nombreCine) throws IOException {
+        int pos = -1;
+        int a = 0;
+        int b = (int) (getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        while (a <= b && pos == -1) {
+            int i = Math.abs((a + b) / 2);
+            Posicionar(i);
+            Leer();
+            if (nombreCine.trim().equals(getNombre())) {
+                pos = i;
+            } else {
+                if (nombreCine.compareTo(getNombre()) < 0) {
+                    b = i - 1;
+                } else {
+                    a = i + 1;
+                }
+            }
+        }
+        return pos;
+    }
+
+    public void OrdenamientoPorInsecion(Cine[] listaCines) {
+        for (int i = 1; i < listaCines.length; i++) {
+            Cine X = listaCines[i];
+            int j = i - 1;
+            while (j >= 0 && X.getNombre().compareTo(listaCines[j].getNombre()) < 0) {
+                listaCines[j + 1] = listaCines[j];
+                j = j - 1;
+            }
+            listaCines[j + 1] = X;
+        }
+    }
+
+    public void ClasificacionEnRAM() throws IOException {
+        int cantidadRegistros = (int) (getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        Cine[] listaCines = new Cine[cantidadRegistros];
+        listaCines = ListadoSecuencial();
+        OrdenamientoPorInsecion(listaCines);
+
+        Cine c = new Cine("Cines", "tmp");
+        c.CrearArchivo();
+        Cabecera cab = c.getCab();
+        cab.Posicionar();
+        cab.setNumeroRegistros(getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        cab.setNumeroRegistrosEliminados(0);
+        cab.setTamañoRegistro(getSize());
+        cab.setNRR_Eliminado(-1);
+        cab.setCompactado((byte) 1);
+        cab.setOrdenado((byte) 1);
+        cab.Escribir();
+        c.Posicionar(0);
+
+        for (Cine cine : listaCines) {
+            cine.setIA(c.getIA());
+            cine.Escribir();
+        }
+
+        Cerrar();
+        c.Cerrar();
+        getFile().delete();
+        c.getFile().renameTo(getFile());
         ReadWriteModeIA();
         getCab().setIA(getIA());
     }
