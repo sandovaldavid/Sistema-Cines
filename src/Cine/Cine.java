@@ -179,7 +179,7 @@ public class Cine extends Archivo.Archivo {
 
     @Override
     public long FragmentacionExterna2() {
-        return getCab().getNumeroRegistros() * getSize();
+        return getCab().getNumeroRegistrosEliminados() * getSize();
     }
 
     @Override
