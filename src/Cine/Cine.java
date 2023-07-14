@@ -157,4 +157,27 @@ public class Cine extends Archivo.Archivo {
         Posicionar(respuesta);
         Escribir();
     }
+
+    @Override
+    public long FragmentacionExterna1() throws IOException {
+        boolean flag = true;
+        int contador = 0;
+        Posicionar(0);
+        while (flag) {
+            try {
+                Leer();
+                if (getActivo() == 0) {
+                    contador++;
+                }
+            } catch (EOFException ex) {
+                flag = false;
+            }
+        }
+        return (contador * getSize());
+    }
+
+    @Override
+    public long FragmentacionExterna2() {
+        return getCab().getNumeroRegistros() * getSize();
+    }
 }
