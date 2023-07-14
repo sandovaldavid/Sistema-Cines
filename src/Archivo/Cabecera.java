@@ -18,11 +18,16 @@ public class Cabecera {
     private int numeroRegistrosEliminados;      //4 bytes
     private int tamañoRegistro;                 //4 bytes
     private byte compactado;                    //1 byte
+    private byte Ordenado;                      //1 byte
+    private int NRR_Eliminado;                  //4 bytes
 
     public Cabecera() {
         this.numeroRegistros = 0;
         this.numeroRegistrosEliminados = 0;
         this.tamañoRegistro = 0;
+        this.compactado = 0;
+        this.Ordenado = 0;
+        this.NRR_Eliminado = 0;
     }
 
     public RandomAccessFile getIA() {
@@ -65,13 +70,29 @@ public class Cabecera {
         this.compactado = compactado;
     }
 
+    public byte getOrdenado() {
+        return Ordenado;
+    }
+
+    public void setOrdenado(byte Ordenado) {
+        this.Ordenado = Ordenado;
+    }
+
+    public int getNRR_Eliminado() {
+        return NRR_Eliminado;
+    }
+
+    public void setNRR_Eliminado(int NRR_Eliminado) {
+        this.NRR_Eliminado = NRR_Eliminado;
+    }
+
     @Override
     public String toString() {
         return "Cabecera{" + "IACab=" + IA + ", numeroRegistros=" + numeroRegistros + ", numeroRegistrosEliminados=" + numeroRegistrosEliminados + ", tama\u00f1oRegistro=" + tamañoRegistro + '}';
     }
 
     public int getSize() {
-        return 13;
+        return 18;
     }
 
     public void Posicionar() throws IOException {
@@ -83,6 +104,8 @@ public class Cabecera {
         getIA().writeInt(getNumeroRegistrosEliminados());
         getIA().writeInt(getTamañoRegistro());
         getIA().writeByte(getCompactado());
+        getIA().writeByte(getOrdenado());
+        getIA().writeInt(getNRR_Eliminado());
     }
 
     public void Leer() throws IOException {
@@ -90,5 +113,7 @@ public class Cabecera {
         setNumeroRegistrosEliminados(getIA().readInt());
         setTamañoRegistro(getIA().readInt());
         setCompactado(getIA().readByte());
+        setOrdenado(getIA().readByte());
+        setNRR_Eliminado(getIA().readInt());
     }
 }
