@@ -322,7 +322,7 @@ public class Cine extends Archivo.Archivo {
         getCab().setIA(getIA());
     }
 
-    public void posicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
+    public void PosicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
         setNRR_Eliminado(getCab().getNRR_Eliminado());
         getCab().setNRR_Eliminado(NRR_Eliminado);
         getCab().Posicionar();
@@ -330,7 +330,7 @@ public class Cine extends Archivo.Archivo {
         Posicionar(NRR_Eliminado);
     }
 
-    public long busquedaBinaria(String nombreCine) throws IOException {
+    public long BusquedaBinaria(String nombreCine) throws IOException {
         int pos = -1;
         int a = 0;
         int b = (int) (getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
