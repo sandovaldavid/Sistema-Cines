@@ -8,6 +8,7 @@ import Archivo.Archivo;
 import Cine.Actualizacion.Consultar;
 import Cine.Actualizacion.Eliminar;
 import Cine.Actualizacion.Listado;
+import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
 import Pelicula.Pelicula;
@@ -95,6 +96,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         EliminarCine = new javax.swing.JMenuItem();
         ListarCine = new javax.swing.JMenuItem();
         ConsultarCine = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MantenimientoCine = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -169,6 +171,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         ActualizarCine.add(ConsultarCine);
 
+        jMenuItem1.setText("Modificar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        ActualizarCine.add(jMenuItem1);
+
         jMenu1.add(ActualizarCine);
 
         MantenimientoCine.setText("Mantenimiento");
@@ -228,6 +238,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.add(ic);
         ic.show();
     }//GEN-LAST:event_ConsultarCineActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Modificar ic = new Modificar();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,5 +315,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

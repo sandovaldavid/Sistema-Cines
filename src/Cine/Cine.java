@@ -152,6 +152,9 @@ public class Cine extends Archivo.Archivo {
         getCab().Posicionar();
         getCab().Escribir();
     }
-    
 
+    public void Modificar(int respuesta) throws IOException {
+        Posicionar(respuesta);
+        Escribir();
+    }
 }
