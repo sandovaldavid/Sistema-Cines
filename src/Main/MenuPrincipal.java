@@ -11,6 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Mantenimiento.CompactarPorCopia;
 import Cine.Mantenimiento.Fragmentacion;
 import Pelicula.Pelicula;
 import Proyeccion.Proyeccion;
@@ -100,6 +101,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         MantenimientoCine = new javax.swing.JMenu();
         GrafmentacionCine = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        CompactacionCopiaCine = new javax.swing.JMenuItem();
+        CompactacionInSitu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -193,6 +197,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         MantenimientoCine.add(GrafmentacionCine);
 
+        jMenu5.setText("Compactacion");
+
+        CompactacionCopiaCine.setText("Copia");
+        CompactacionCopiaCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompactacionCopiaCineActionPerformed(evt);
+            }
+        });
+        jMenu5.add(CompactacionCopiaCine);
+
+        CompactacionInSitu.setText("IN-SISTU");
+        jMenu5.add(CompactacionInSitu);
+
+        MantenimientoCine.add(jMenu5);
+
         jMenu1.add(MantenimientoCine);
 
         jMenuBar1.add(jMenu1);
@@ -262,6 +281,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_GrafmentacionCineActionPerformed
 
+    private void CompactacionCopiaCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompactacionCopiaCineActionPerformed
+        CompactarPorCopia ic = new CompactarPorCopia();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_CompactacionCopiaCineActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -320,6 +345,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ActualizarCine;
+    private javax.swing.JMenuItem CompactacionCopiaCine;
+    private javax.swing.JMenuItem CompactacionInSitu;
     private javax.swing.JMenuItem ConsultarCine;
     private javax.swing.JMenuItem EliminarCine;
     private javax.swing.JDesktopPane Escritorio;
@@ -332,6 +359,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables

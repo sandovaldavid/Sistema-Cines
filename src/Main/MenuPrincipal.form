@@ -87,6 +87,26 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GrafmentacionCineActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <Menu class="javax.swing.JMenu" name="jMenu5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Compactacion"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="CompactacionCopiaCine">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Copia"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CompactacionCopiaCineActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="CompactacionInSitu">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="IN-SISTU"/>
+                      </Properties>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
               </SubComponents>
             </Menu>
           </SubComponents>
