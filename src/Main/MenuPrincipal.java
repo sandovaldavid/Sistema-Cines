@@ -11,6 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Mantenimiento.CompactarInSitu;
 import Cine.Mantenimiento.CompactarPorCopia;
 import Cine.Mantenimiento.Fragmentacion;
 import Pelicula.Pelicula;
@@ -208,6 +209,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu5.add(CompactacionCopiaCine);
 
         CompactacionInSitu.setText("IN-SISTU");
+        CompactacionInSitu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompactacionInSituActionPerformed(evt);
+            }
+        });
         jMenu5.add(CompactacionInSitu);
 
         MantenimientoCine.add(jMenu5);
@@ -286,6 +292,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.add(ic);
         ic.show();
     }//GEN-LAST:event_CompactacionCopiaCineActionPerformed
+
+    private void CompactacionInSituActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompactacionInSituActionPerformed
+        CompactarInSitu ic = new CompactarInSitu();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_CompactacionInSituActionPerformed
 
     /**
      * @param args the command line arguments
