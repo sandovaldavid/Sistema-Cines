@@ -44,8 +44,8 @@ public class Eliminar extends javax.swing.JInternalFrame {
         txtDireccion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnVerificar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Eliminar Cine");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -86,14 +86,6 @@ public class Eliminar extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,11 +103,11 @@ public class Eliminar extends javax.swing.JInternalFrame {
                             .addComponent(txtNombre)
                             .addComponent(txtCiudad)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(btnEliminar)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalir)
-                    .addComponent(btnVerificar))
+                .addComponent(btnVerificar)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -135,9 +127,7 @@ public class Eliminar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnSalir))
+                .addComponent(btnEliminar)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -152,10 +142,6 @@ public class Eliminar extends javax.swing.JInternalFrame {
         }
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
@@ -185,7 +171,6 @@ public class Eliminar extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
