@@ -14,9 +14,10 @@ import java.io.RandomAccessFile;
 public class Cabecera {
 
     private RandomAccessFile IA;
-    private int numeroRegistros;               //4 bytes
-    private int numeroRegistrosEliminados;     //4 bytes
-    private int tamañoRegistro;                //4 bytes
+    private int numeroRegistros;                //4 bytes
+    private int numeroRegistrosEliminados;      //4 bytes
+    private int tamañoRegistro;                 //4 bytes
+    private byte compactado;                     // 1 byte
 
     public Cabecera() {
         this.numeroRegistros = 0;
@@ -54,6 +55,14 @@ public class Cabecera {
 
     public void setTamañoRegistro(int tamañoRegistro) {
         this.tamañoRegistro = tamañoRegistro;
+    }
+
+    public byte getCompactado() {
+        return compactado;
+    }
+
+    public void setCompactado(byte compactado) {
+        this.compactado = compactado;
     }
 
     @Override
