@@ -17,8 +17,8 @@ public class Cabecera {
     private int numeroRegistros;                //4 bytes
     private int numeroRegistrosEliminados;      //4 bytes
     private int tamañoRegistro;                 //4 bytes
-    private byte compactado;                    //1 byte
-    private byte Ordenado;                      //1 byte
+    private byte compactado;                    //1 byte    1 --> compactado || 0 --> no compactado
+    private byte Ordenado;                      //1 byte    1 --> ordenado || 0 --> ordenado
     private int NRR_Eliminado;                  //4 bytes
 
     public Cabecera() {
