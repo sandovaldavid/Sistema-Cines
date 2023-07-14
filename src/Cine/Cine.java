@@ -152,5 +152,6 @@ public class Cine extends Archivo.Archivo {
         getCab().Posicionar();
         getCab().Escribir();
     }
+    
 
 }

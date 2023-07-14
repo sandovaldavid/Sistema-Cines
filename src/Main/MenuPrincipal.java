@@ -5,6 +5,7 @@
 package Main;
 
 import Archivo.Archivo;
+import Cine.Actualizacion.Consultar;
 import Cine.Actualizacion.Eliminar;
 import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Registrar;
@@ -93,6 +94,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         RegistrarCine = new javax.swing.JMenuItem();
         EliminarCine = new javax.swing.JMenuItem();
         ListarCine = new javax.swing.JMenuItem();
+        ConsultarCine = new javax.swing.JMenuItem();
         MantenimientoCine = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -159,6 +161,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         ActualizarCine.add(ListarCine);
 
+        ConsultarCine.setText("Consultar");
+        ConsultarCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarCineActionPerformed(evt);
+            }
+        });
+        ActualizarCine.add(ConsultarCine);
+
         jMenu1.add(ActualizarCine);
 
         MantenimientoCine.setText("Mantenimiento");
@@ -212,6 +222,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.add(ic);
         ic.show();
     }//GEN-LAST:event_ListarCineActionPerformed
+
+    private void ConsultarCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarCineActionPerformed
+        Consultar ic = new Consultar();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ConsultarCineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ActualizarCine;
+    private javax.swing.JMenuItem ConsultarCine;
     private javax.swing.JMenuItem EliminarCine;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem ListarCine;
