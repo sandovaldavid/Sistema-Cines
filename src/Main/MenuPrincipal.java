@@ -11,6 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Mantenimiento.Fragmentacion;
 import Pelicula.Pelicula;
 import Proyeccion.Proyeccion;
 import Sala.Sala;
@@ -98,6 +99,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ConsultarCine = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         MantenimientoCine = new javax.swing.JMenu();
+        GrafmentacionCine = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -182,6 +184,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1.add(ActualizarCine);
 
         MantenimientoCine.setText("Mantenimiento");
+
+        GrafmentacionCine.setText("Fragmentacion");
+        GrafmentacionCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GrafmentacionCineActionPerformed(evt);
+            }
+        });
+        MantenimientoCine.add(GrafmentacionCine);
+
         jMenu1.add(MantenimientoCine);
 
         jMenuBar1.add(jMenu1);
@@ -245,6 +256,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void GrafmentacionCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrafmentacionCineActionPerformed
+        Fragmentacion ic = new Fragmentacion();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_GrafmentacionCineActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -306,6 +323,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ConsultarCine;
     private javax.swing.JMenuItem EliminarCine;
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem GrafmentacionCine;
     private javax.swing.JMenuItem ListarCine;
     private javax.swing.JMenu MantenimientoCine;
     private javax.swing.JMenuItem RegistrarCine;

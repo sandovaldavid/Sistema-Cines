@@ -78,6 +78,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mantenimiento"/>
               </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="GrafmentacionCine">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fragmentacion"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GrafmentacionCineActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
             </Menu>
           </SubComponents>
         </Menu>
