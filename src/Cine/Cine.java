@@ -256,4 +256,53 @@ public class Cine extends Archivo.Archivo {
         c.getFile().renameTo(getFile());
         ReadWriteModeIA();
     }
+
+    public void CompactacionInSitu() throws IOException {
+        boolean flag = true;
+        RandomAccessFile auxIA;
+        Cerrar();
+        ReadModeIA();
+        Cine c = new Cine("Cines", "dat");
+        c.CrearArchivo();
+        c.Cerrar();
+        c.ReadWriteModeIA();
+        c.getCab().setIA(c.getIA());
+        c.getCab().setTamañoRegistro(getSize());
+        Posicionar(0);
+        Leer();
+        auxIA = c.getIA();
+        c.Posicionar(0);
+        c.Leer();
+        boolean flagIA = true;
+        while (flag) {
+            try {
+                if (getActivo() == 0) {
+                    flagIA = false;
+                }
+                if (flagIA) {
+                    c.Leer();
+                } else if (getActivo() == 1) {
+                    c.setNombre(getNombre());
+                    c.setCiudad(getCiudad());
+                    c.setDireccion(getDireccion());
+                    c.setActivo(getActivo());
+                    c.Escribir();
+                }
+                Leer();
+            } catch (EOFException e) {
+                flag = false;
+                c.Leer();
+                c.setActivo((byte) 0);
+                c.Escribir();
+            }
+        }
+        c.getCab().setNumeroRegistros(getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        c.getCab().setNumeroRegistrosEliminados(0);
+        c.getCab().setCompactado((byte) 1);
+        c.getCab().Posicionar();
+        c.getCab().Escribir();
+        Cerrar();
+        c.Cerrar();
+        ReadWriteModeIA();
+    }
 }
