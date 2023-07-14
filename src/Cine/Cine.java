@@ -20,9 +20,11 @@ public class Cine extends Archivo.Archivo {
     private String Ciudad;      //22 bytes    
     private String Direccion;   //32 bytes
     private byte Activo;        //1 byte
+    private int NRR_Eliminado;  //4 bytes
 
     public Cine(String NombreArchivo, String Extension) {
         super(NombreArchivo, Extension);
+        this.NRR_Eliminado = -1;
     }
 
     public Cine(String Nombre, String Ciudad, String Direccion) {
@@ -30,6 +32,7 @@ public class Cine extends Archivo.Archivo {
         this.Ciudad = Ciudad;
         this.Direccion = Direccion;
         this.Activo = (byte) 1;
+        this.NRR_Eliminado = -1;
     }
 
     public String getNombre() {
@@ -64,6 +67,14 @@ public class Cine extends Archivo.Archivo {
         this.Activo = Activo;
     }
 
+    public int getNRR_Eliminado() {
+        return NRR_Eliminado;
+    }
+
+    public void setNRR_Eliminado(int NRR_Eliminado) {
+        this.NRR_Eliminado = NRR_Eliminado;
+    }
+
     @Override
     public String toString() {
         return "Cine{" + "Nombre=" + Nombre + ", Ciudad=" + Ciudad + ", Direccion=" + Direccion + ", Activo=" + Activo + '}';
@@ -85,6 +96,7 @@ public class Cine extends Archivo.Archivo {
         getIA().writeUTF(String.format("%20.20s", getCiudad()));
         getIA().writeUTF(String.format("%30.30s", getDireccion()));
         getIA().writeByte(getActivo());
+        getIA().writeInt(getNRR_Eliminado());
     }
 
     @Override
@@ -93,6 +105,7 @@ public class Cine extends Archivo.Archivo {
         setCiudad(getIA().readUTF().trim());
         setDireccion(getIA().readUTF().trim());
         setActivo(getIA().readByte());
+        setNRR_Eliminado(getIA().readInt());
     }
 
     public void IngresarRegistro() throws IOException {
@@ -255,6 +268,7 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         ReadWriteModeIA();
+        getCab().setIA(getIA());
     }
 
     public void CompactacionInSitu() throws IOException {
@@ -304,5 +318,6 @@ public class Cine extends Archivo.Archivo {
         Cerrar();
         c.Cerrar();
         ReadWriteModeIA();
+        getCab().setIA(getIA());
     }
 }
