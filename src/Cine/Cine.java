@@ -5,6 +5,7 @@
 package Cine;
 
 import Archivo.Cabecera;
+import Archivo.Nodo;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -82,7 +83,7 @@ public class Cine extends Archivo.Archivo {
     }
 
     public int getSize() {
-        return 77;
+        return 81;
     }
 
     @Override
@@ -110,11 +111,34 @@ public class Cine extends Archivo.Archivo {
     }
 
     public void IngresarRegistro() throws IOException {
-        Posicionar(getCab().getNumeroRegistros());
+        //Posicionar(getCab().getNumeroRegistros());
+        Cine aux = new Cine(getNombre(), getCiudad(), getDireccion());
+        PosicionarLugarAdecuadoInsercion();
+        setNombre(aux.getNombre());
+        setCiudad(aux.getCiudad());
+        setDireccion(aux.getDireccion());
+        setActivo(aux.getActivo());
         Escribir();
-        getCab().setNumeroRegistros(getCab().getNumeroRegistros() + 1);
-        getCab().Posicionar();
-        getCab().Escribir();
+    }
+
+    public void PosicionarLugarAdecuadoInsercion() throws IOException {
+        if (getCab().getNRR_Eliminado() == -1) {
+            int a = getCab().getNumeroRegistros();
+            getCab().setNumeroRegistros(getCab().getNumeroRegistros() + 1);
+            getCab().Posicionar();
+            getCab().Escribir();
+            Posicionar(a);
+        } else {
+            int NRR_Eliminado = getCab().getNRR_Eliminado();
+            Posicionar(NRR_Eliminado);
+            Leer();
+            getCab().setNRR_Eliminado(getNRR_Eliminado());
+            getCab().setNumeroRegistrosEliminados(getCab().getNumeroRegistrosEliminados() - 1);
+            getCab().Posicionar();
+            getCab().Escribir();
+            System.out.println(getCab().getNRR_Eliminado());
+            Posicionar(NRR_Eliminado);
+        }
     }
 
     public Cine[] ListadoSecuencial() throws IOException {
@@ -163,7 +187,8 @@ public class Cine extends Archivo.Archivo {
 
     public void EliminarRegistro(int respuesta) throws IOException {
         setActivo((byte) 0);
-        Posicionar(respuesta);
+//        Posicionar(respuesta);
+        PosicionarLugarAdecuadoEliminacion(respuesta);
         Escribir();
         getCab().setNumeroRegistrosEliminados(getCab().getNumeroRegistrosEliminados() + 1);
         getCab().Posicionar();
@@ -387,6 +412,101 @@ public class Cine extends Archivo.Archivo {
             cine.Escribir();
         }
 
+        Cerrar();
+        c.Cerrar();
+        getFile().delete();
+        c.getFile().renameTo(getFile());
+        ReadWriteModeIA();
+        getCab().setIA(getIA());
+    }
+
+    public void OrdenamientoPorInsecionNodo(Nodo[] listanodos) {
+        for (int i = 1; i < listanodos.length; i++) {
+            Nodo x = listanodos[i];
+            int j = i - 1;
+            while (j >= 0 && x.getClave().compareTo(listanodos[j].getClave()) < 0) {
+                listanodos[j + 1] = listanodos[j];
+                j = j - 1;
+            }
+            listanodos[j + 1] = x;
+        }
+    }
+
+    public void ClasificacionPorNodos() throws IOException {
+        int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
+        Cine[] ArregloCines = new Cine[RegistrosActivos];
+        Nodo[] ArregloNodos = new Nodo[RegistrosActivos];
+        Cine c = new Cine("Cines", "tmp");
+        c.CrearArchivo();
+        c.getCab().setTamañoRegistro(getSize());
+        ArregloCines = ListadoSecuencial();
+
+        for (int i = 0; i < RegistrosActivos; i++) {
+            ArregloNodos[i] = new Nodo(ArregloCines[i].getNombre(), i);
+            System.out.println(ArregloNodos[i].toString());
+        }
+        OrdenamientoPorInsecionNodo(ArregloNodos);
+        c.Posicionar(0);
+        for (int i = 0; i < RegistrosActivos; i++) {
+            ArregloCines[ArregloNodos[i].getReferencia()].setIA(c.getIA());
+            ArregloCines[ArregloNodos[i].getReferencia()].Escribir();
+        }
+        c.getCab().setNumeroRegistros(RegistrosActivos);
+        c.getCab().setCompactado((byte) 1);
+        c.getCab().setOrdenado((byte) 1);
+        c.getCab().Posicionar();
+        c.getCab().Escribir();
+        Cerrar();
+        c.Cerrar();
+        getFile().delete();
+        c.getFile().renameTo(getFile());
+        ReadWriteModeIA();
+        getCab().setIA(getIA());
+    }
+
+    public void ClasificacionIndirecciones() throws IOException {
+        int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
+        Cine[] ArregloCines = new Cine[RegistrosActivos];
+        String[] ArregloClaves = new String[RegistrosActivos];
+        int[] ArregloReferencias = new int[RegistrosActivos];
+
+        Cine c = new Cine("Cines", "tmp");
+        c.CrearArchivo();
+        c.getCab().setTamañoRegistro(getSize());
+        c.getCab().setIA(c.getIA());
+        ArregloCines = ListadoSecuencial();
+
+        //Cargar Arreglo de Claves
+        for (int i = 0; i < RegistrosActivos; i++) {
+            ArregloClaves[i] = ArregloCines[i].getNombre();
+        }
+
+        //Cargar Arreglo de Referencias
+        for (int i = 0; i < RegistrosActivos; i++) {
+            ArregloReferencias[i] = i;
+        }
+
+        for (int i = 1; i < RegistrosActivos; i++) {
+            String X = ArregloClaves[i];
+            int ref = ArregloReferencias[i];
+            int j = i - 1;
+            while (j >= 0 && X.compareTo(ArregloClaves[j]) < 0) {
+                ArregloReferencias[j + 1] = ArregloReferencias[j];
+                j = j - 1;
+            }
+            ArregloReferencias[j + 1] = ref;
+        }
+
+        c.Posicionar(0);
+        for (int i = 0; i < RegistrosActivos; i++) {
+            ArregloCines[ArregloReferencias[i]].setIA(c.getIA());
+            ArregloCines[ArregloReferencias[i]].Escribir();
+        }
+        c.getCab().setNumeroRegistros(RegistrosActivos);
+        c.getCab().setCompactado((byte) 1);
+        c.getCab().setOrdenado((byte) 1);
+        c.getCab().Posicionar();
+        c.getCab().Escribir();
         Cerrar();
         c.Cerrar();
         getFile().delete();
