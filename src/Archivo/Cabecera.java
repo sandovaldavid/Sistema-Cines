@@ -27,7 +27,7 @@ public class Cabecera {
         this.tamañoRegistro = 0;
         this.compactado = 0;
         this.Ordenado = 0;
-        this.NRR_Eliminado = 0;
+        this.NRR_Eliminado = -1;
     }
 
     public RandomAccessFile getIA() {
@@ -88,7 +88,7 @@ public class Cabecera {
 
     @Override
     public String toString() {
-        return "Cabecera{" + "IACab=" + IA + ", numeroRegistros=" + numeroRegistros + ", numeroRegistrosEliminados=" + numeroRegistrosEliminados + ", tama\u00f1oRegistro=" + tamañoRegistro + '}';
+        return "Cabecera{" + "IA=" + IA + ", numeroRegistros=" + numeroRegistros + ", numeroRegistrosEliminados=" + numeroRegistrosEliminados + ", tama\u00f1oRegistro=" + tamañoRegistro + ", compactado=" + compactado + ", Ordenado=" + Ordenado + ", NRR_Eliminado=" + NRR_Eliminado + '}';
     }
 
     public int getSize() {
