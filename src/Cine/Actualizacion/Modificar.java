@@ -144,7 +144,11 @@ public class Modificar extends javax.swing.JInternalFrame {
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
-            respuesta = cine.BusquedaSecuencial(txtNombre.getText());
+            if (cine.getCab().getOrdenado() == 1) {
+                respuesta = cine.BusquedaBinaria(txtNombre.getText());
+            } else {
+                respuesta = cine.BusquedaSecuencial(txtNombre.getText());
+            }
             if (respuesta != -1) {
                 txtNombre.setEditable(false);
                 txtCiudad.setText(cine.getCiudad());
