@@ -11,6 +11,9 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Mantenimiento.ClasificacionIndirecciones;
+import Cine.Mantenimiento.ClasificacionNodos;
+import Cine.Mantenimiento.ClasificacionRAM;
 import Cine.Mantenimiento.CompactarInSitu;
 import Cine.Mantenimiento.CompactarPorCopia;
 import Cine.Mantenimiento.Fragmentacion;
@@ -105,6 +108,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         CompactacionCopiaCine = new javax.swing.JMenuItem();
         CompactacionInSitu = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        ClasificacionRAM = new javax.swing.JMenuItem();
+        ClasificacionNodos = new javax.swing.JMenuItem();
+        ClasificacionIndirecciones = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -218,6 +225,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         MantenimientoCine.add(jMenu5);
 
+        jMenu6.setText("Clasificacion");
+
+        ClasificacionRAM.setText("RAM");
+        ClasificacionRAM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClasificacionRAMActionPerformed(evt);
+            }
+        });
+        jMenu6.add(ClasificacionRAM);
+
+        ClasificacionNodos.setText("Nodos");
+        ClasificacionNodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClasificacionNodosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(ClasificacionNodos);
+
+        ClasificacionIndirecciones.setText("Indirecciones");
+        ClasificacionIndirecciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClasificacionIndireccionesActionPerformed(evt);
+            }
+        });
+        jMenu6.add(ClasificacionIndirecciones);
+
+        MantenimientoCine.add(jMenu6);
+
         jMenu1.add(MantenimientoCine);
 
         jMenuBar1.add(jMenu1);
@@ -299,6 +334,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_CompactacionInSituActionPerformed
 
+    private void ClasificacionRAMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClasificacionRAMActionPerformed
+        ClasificacionRAM ic = new ClasificacionRAM();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ClasificacionRAMActionPerformed
+
+    private void ClasificacionNodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClasificacionNodosActionPerformed
+        ClasificacionNodos ic = new ClasificacionNodos();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ClasificacionNodosActionPerformed
+
+    private void ClasificacionIndireccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClasificacionIndireccionesActionPerformed
+        ClasificacionIndirecciones ic = new ClasificacionIndirecciones();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ClasificacionIndireccionesActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -357,6 +410,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ActualizarCine;
+    private javax.swing.JMenuItem ClasificacionIndirecciones;
+    private javax.swing.JMenuItem ClasificacionNodos;
+    private javax.swing.JMenuItem ClasificacionRAM;
     private javax.swing.JMenuItem CompactacionCopiaCine;
     private javax.swing.JMenuItem CompactacionInSitu;
     private javax.swing.JMenuItem ConsultarCine;
@@ -372,6 +428,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
