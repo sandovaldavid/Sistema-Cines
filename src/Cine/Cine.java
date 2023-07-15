@@ -354,7 +354,7 @@ public class Cine extends Archivo.Archivo {
         Posicionar(NRR_Eliminado);
     }
 
-    public long BusquedaBinaria(String nombreCine) throws IOException {
+    public int BusquedaBinaria(String nombreCine) throws IOException {
         int pos = -1;
         int a = 0;
         int b = (int) (getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
