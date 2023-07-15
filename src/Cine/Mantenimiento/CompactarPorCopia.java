@@ -37,6 +37,7 @@ public class CompactarPorCopia extends javax.swing.JInternalFrame {
         btnCompactarCopia = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Compactacion por Copia");
 
         btnCompactarCopia.setBackground(new java.awt.Color(0, 153, 51));
         btnCompactarCopia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
