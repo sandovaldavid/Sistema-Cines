@@ -9,19 +9,20 @@ import static Main.MenuPrincipal.getCine;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author David Sandoval Salvador
  */
-public class CompactarInSitu extends javax.swing.JInternalFrame {
-
+public class ClasificacionNodos extends javax.swing.JInternalFrame {
+    
     Cine cine = getCine();
 
     /**
      * Creates new form CompactarPorCopia
      */
-    public CompactarInSitu() {
+    public ClasificacionNodos() {
         initComponents();
     }
 
@@ -37,11 +38,12 @@ public class CompactarInSitu extends javax.swing.JInternalFrame {
         btnCompactarInsitu = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Clasificacion por Nodos");
 
         btnCompactarInsitu.setBackground(new java.awt.Color(0, 153, 51));
         btnCompactarInsitu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCompactarInsitu.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompactarInsitu.setText("Compactar");
+        btnCompactarInsitu.setText("Clasificar");
         btnCompactarInsitu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompactarInsituActionPerformed(evt);
@@ -55,7 +57,7 @@ public class CompactarInSitu extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addComponent(btnCompactarInsitu)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,9 +72,10 @@ public class CompactarInSitu extends javax.swing.JInternalFrame {
 
     private void btnCompactarInsituActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompactarInsituActionPerformed
         try {
-            cine.CompactacionInSitu();
+            cine.ClasificacionPorNodos();
+            JOptionPane.showMessageDialog(null, "Clasificacion Terminada");
         } catch (IOException ex) {
-            Logger.getLogger(CompactarInSitu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClasificacionNodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCompactarInsituActionPerformed
 
