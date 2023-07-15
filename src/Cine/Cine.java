@@ -136,7 +136,6 @@ public class Cine extends Archivo.Archivo {
             getCab().setNumeroRegistrosEliminados(getCab().getNumeroRegistrosEliminados() - 1);
             getCab().Posicionar();
             getCab().Escribir();
-            System.out.println(getCab().getNRR_Eliminado());
             Posicionar(NRR_Eliminado);
         }
     }
@@ -443,7 +442,6 @@ public class Cine extends Archivo.Archivo {
 
         for (int i = 0; i < RegistrosActivos; i++) {
             ArregloNodos[i] = new Nodo(ArregloCines[i].getNombre(), i);
-            System.out.println(ArregloNodos[i].toString());
         }
         OrdenamientoPorInsecionNodo(ArregloNodos);
         c.Posicionar(0);
