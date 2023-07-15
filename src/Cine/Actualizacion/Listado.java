@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -20,7 +21,7 @@ import javax.swing.table.TableColumnModel;
  * @author David Sandoval Salvador
  */
 public class Listado extends javax.swing.JInternalFrame {
-
+    
     DefaultTableModel dmCustomers = new DefaultTableModel();
     Cine[] cines;
 
@@ -106,6 +107,9 @@ public class Listado extends javax.swing.JInternalFrame {
         try {
             SetModelo();
             cines = getCine().ListadoSecuencial();
+            if (cines == null) {
+                JOptionPane.showMessageDialog(null, "No hay registros en el Archivo.");
+            }
             setDatos();
             resizeColumnWidth(JTableCines);
             JTableCines.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -113,13 +117,13 @@ public class Listado extends javax.swing.JInternalFrame {
             Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnListarActionPerformed
-
+    
     private void SetModelo() {
         String[] Column = {"Nombre", "Ciudad", "Direccion"};
         dmCustomers.setColumnIdentifiers(Column);
         JTableCines.setModel(dmCustomers);
     }
-
+    
     private void setDatos() {
         Object[] datos1 = new Object[dmCustomers.getColumnCount()];
         dmCustomers.setRowCount(0);
@@ -131,7 +135,7 @@ public class Listado extends javax.swing.JInternalFrame {
         }
         JTableCines.setModel(dmCustomers);
     }
-
+    
     public void resizeColumnWidth(JTable table) {
         //Se obtiene el modelo de la columna
         TableColumnModel columnModel = table.getColumnModel();
@@ -147,7 +151,7 @@ public class Listado extends javax.swing.JInternalFrame {
                 Component comp = table.prepareRenderer(renderer, row, column);
                 //Establecemos el width segun el valor maximo del ancho de la columna
                 width = Math.max(comp.getPreferredSize().width + 10, width);
-
+                
             }
             //Se establece una condicion para no sobrepasar el valor de 300
             //Esto es Opcional
