@@ -292,8 +292,7 @@ public class Cine extends Archivo.Archivo {
         c.Cerrar();
         getFile().delete();
         c.getFile().renameTo(getFile());
-        ReadWriteModeIA();
-        getCab().setIA(getIA());
+        CrearArchivo();
     }
 
     public void CompactacionInSitu() throws IOException {
@@ -342,8 +341,7 @@ public class Cine extends Archivo.Archivo {
         c.getCab().Escribir();
         Cerrar();
         c.Cerrar();
-        ReadWriteModeIA();
-        getCab().setIA(getIA());
+        CrearArchivo();
     }
 
     public void PosicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
@@ -415,8 +413,7 @@ public class Cine extends Archivo.Archivo {
         c.Cerrar();
         getFile().delete();
         c.getFile().renameTo(getFile());
-        ReadWriteModeIA();
-        getCab().setIA(getIA());
+        CrearArchivo();
     }
 
     public void OrdenamientoPorInsecionNodo(Nodo[] listanodos) {
@@ -458,8 +455,7 @@ public class Cine extends Archivo.Archivo {
         c.Cerrar();
         getFile().delete();
         c.getFile().renameTo(getFile());
-        ReadWriteModeIA();
-        getCab().setIA(getIA());
+        CrearArchivo();
     }
 
     public void ClasificacionIndirecciones() throws IOException {
@@ -509,7 +505,6 @@ public class Cine extends Archivo.Archivo {
         c.Cerrar();
         getFile().delete();
         c.getFile().renameTo(getFile());
-        ReadWriteModeIA();
-        getCab().setIA(getIA());
+        CrearArchivo();
     }
 }
