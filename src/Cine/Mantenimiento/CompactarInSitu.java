@@ -37,6 +37,7 @@ public class CompactarInSitu extends javax.swing.JInternalFrame {
         btnCompactarInsitu = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Clasificacion In-Situ");
 
         btnCompactarInsitu.setBackground(new java.awt.Color(0, 153, 51));
         btnCompactarInsitu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
