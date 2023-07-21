@@ -125,14 +125,14 @@ public class Cine extends Archivo.Archivo {
     public void IngresarRegistro() throws IOException {
         //Posicionar(getCab().getNumeroRegistros());
         Cine aux = new Cine(getNombre(), getCiudad(), getDireccion());
+        Nodo n = new Nodo(aux.getNombre(), -1);
+        InsertarNodo(n);
         PosicionarLugarAdecuadoInsercion();
         setNombre(aux.getNombre());
         setCiudad(aux.getCiudad());
         setDireccion(aux.getDireccion());
         setActivo(aux.getActivo());
         Escribir();
-        Nodo n = new Nodo(aux.getNombre(), getIndicePrimario().length);
-        InsertarNodo(n);
         getCab().setModificado((byte) 1);
         getCab().Posicionar();
         getCab().Escribir();
@@ -643,6 +643,12 @@ public class Cine extends Archivo.Archivo {
     }
 
     public void InsertarNodo(Nodo nodo) {
+        if (getCab().getNRR_Eliminado() == -1) {
+            nodo.setReferencia(getCab().getNumeroRegistros());
+        } else {
+            nodo.setReferencia(getCab().getNRR_Eliminado());
+        }
+
         int pos = PosicionarNuevoNodo(nodo.getClave());
         Nodo[] nuevaListaindicesPrimarios = new Nodo[getIndicePrimario().length + 1];
         // Copiamos los elementos desde el arreglo original hasta la posición donde se insertará el nuevo número
