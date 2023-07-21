@@ -209,6 +209,10 @@ public class Cine extends Archivo.Archivo {
         getCab().setNumeroRegistrosEliminados(getCab().getNumeroRegistrosEliminados() + 1);
         getCab().Posicionar();
         getCab().Escribir();
+        EliminarNodo(respuesta);
+        getCab().setModificado((byte) 1);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public void Modificar(int respuesta) throws IOException {
@@ -652,5 +656,24 @@ public class Cine extends Archivo.Archivo {
         // Copiamos los elementos desde la posición de inserción hasta el final del arreglo original
         System.arraycopy(getIndicePrimario(), pos, nuevaListaindicesPrimarios, pos + 1, getIndicePrimario().length - pos);
         setIndicePrimario(nuevaListaindicesPrimarios);
+    }
+
+    public void EliminarNodo(int posicion) {
+        int pos = posicion;
+
+        // Creamos un nuevo arreglo con una longitud reducida en 1
+        Nodo[] nuevoArreglo = new Nodo[getIndicePrimario().length - 1];
+
+        // Copiamos los elementos del arreglo original hasta el índice a eliminar
+        System.arraycopy(getIndicePrimario(), 0, nuevoArreglo, 0, pos);
+
+        // Copiamos los elementos desde la posición siguiente al índice a eliminar hasta el final del arreglo original
+        System.arraycopy(getIndicePrimario(), pos + 1, nuevoArreglo, pos, getIndicePrimario().length - pos - 1);
+
+        setIndicePrimario(nuevoArreglo);
+        System.out.println("Nodo eliminado");
+        for (Nodo n : getIndicePrimario()) {
+            System.out.println(n.toString());
+        }
     }
 }
