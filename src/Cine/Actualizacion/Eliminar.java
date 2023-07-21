@@ -147,7 +147,6 @@ public class Eliminar extends javax.swing.JInternalFrame {
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
             respuesta = cine.BusquedaPorIndice(txtNombre.getText());
-            System.out.println(respuesta);
             if (respuesta != -1) {
                 txtNombre.setEditable(false);
                 txtCiudad.setText(cine.getCiudad());
