@@ -250,4 +250,7 @@ public class Archivo {
 
     }
 
+    public void CargarIndiceSecundario() throws IOException {
+
+    }
 }
