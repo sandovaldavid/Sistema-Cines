@@ -548,7 +548,7 @@ public class Cine extends Archivo.Archivo {
         IndicePrimario = new Nodo[RegistrosActivos];
         boolean flag = true;
         int i = 0;
-        Nodo nodo = getNodo();
+        Nodo nodo = getNodoP();
         nodo.Posicionar(0);
         try {
             nodo.Leer();
@@ -565,7 +565,7 @@ public class Cine extends Archivo.Archivo {
         } catch (EOFException e) {
             flag = false;
         }
-
+        setIndicePrimario(IndicePrimario);
         nodo.Cerrar();
     }
 
@@ -573,13 +573,13 @@ public class Cine extends Archivo.Archivo {
         getFileIndicePrimario().delete();
         getFileIndicePrimario().createNewFile();
         ReadWriteModeIAIndicePrimario();
-        getNodo().Posicionar(0);
+        getNodoP().Posicionar(0);
         for (Nodo nodo : getIndicePrimario()) {
-            getNodo().setClave(nodo.getClave());
-            getNodo().setReferencia(nodo.getReferencia());
-            getNodo().Escribir();
+            getNodoP().setClave(nodo.getClave());
+            getNodoP().setReferencia(nodo.getReferencia());
+            getNodoP().Escribir();
         }
-        getNodo().Cerrar();
+        getNodoP().Cerrar();
         getCab().setModificado((byte) 0);
         getCab().Posicionar();
         getCab().Posicionar();
