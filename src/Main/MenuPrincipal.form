@@ -156,12 +156,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReconstruccionCineActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="ListarIndicePrimarioCine">
+                <MenuItem class="javax.swing.JMenuItem" name="ListarIndiceCine">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Listar Indice Primario"/>
+                    <Property name="text" type="java.lang.String" value="Listar Indice"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ListarIndicePrimarioCineActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ListarIndiceCineActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

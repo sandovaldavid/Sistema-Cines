@@ -11,7 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
-import Cine.Indice.ListarIndicePrimario;
+import Cine.Indice.ListarIndice;
 import Cine.Indice.Reconstruccion;
 import Cine.Mantenimiento.ClasificacionIndirecciones;
 import Cine.Mantenimiento.ClasificacionNodos;
@@ -116,7 +116,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ClasificacionIndirecciones = new javax.swing.JMenuItem();
         IndiceCine = new javax.swing.JMenu();
         ReconstruccionCine = new javax.swing.JMenuItem();
-        ListarIndicePrimarioCine = new javax.swing.JMenuItem();
+        ListarIndiceCine = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -275,13 +275,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         IndiceCine.add(ReconstruccionCine);
 
-        ListarIndicePrimarioCine.setText("Listar Indice Primario");
-        ListarIndicePrimarioCine.addActionListener(new java.awt.event.ActionListener() {
+        ListarIndiceCine.setText("Listar Indice");
+        ListarIndiceCine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListarIndicePrimarioCineActionPerformed(evt);
+                ListarIndiceCineActionPerformed(evt);
             }
         });
-        IndiceCine.add(ListarIndicePrimarioCine);
+        IndiceCine.add(ListarIndiceCine);
 
         jMenu1.add(IndiceCine);
 
@@ -388,16 +388,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_ReconstruccionCineActionPerformed
 
-    private void ListarIndicePrimarioCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarIndicePrimarioCineActionPerformed
-        ListarIndicePrimario ic = new ListarIndicePrimario();
+    private void ListarIndiceCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarIndiceCineActionPerformed
+        ListarIndice ic = new ListarIndice();
         Escritorio.add(ic);
         ic.show();
-    }//GEN-LAST:event_ListarIndicePrimarioCineActionPerformed
+    }//GEN-LAST:event_ListarIndiceCineActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             if (getCine().getCab().getModificado() == 1) {
-                getCine().ReconstruccionIndicePrimario();
+                getCine().ReescrituraIndice();
+                getCine().ReescrituraIndiceSecundario();
                 System.out.println("Indice Modificado guardado Guardado");
             } else {
                 System.out.println("No hay cambios en el indice.");
@@ -435,6 +436,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     archivos[i].CrearArchivo();
                     archivos[i].CrearArchivoIdices();
                     archivos[i].CargarIndicePrimario();
+                    archivos[i].CargarIndiceSecundario();
                     i++;
                 } catch (IOException ex) {
                     Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -457,7 +459,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem GrafmentacionCine;
     private javax.swing.JMenu IndiceCine;
     private javax.swing.JMenuItem ListarCine;
-    private javax.swing.JMenuItem ListarIndicePrimarioCine;
+    private javax.swing.JMenuItem ListarIndiceCine;
     private javax.swing.JMenu MantenimientoCine;
     private javax.swing.JMenuItem ReconstruccionCine;
     private javax.swing.JMenuItem RegistrarCine;
