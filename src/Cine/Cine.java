@@ -25,6 +25,7 @@ public class Cine extends Archivo.Archivo {
     private byte Activo;        //1 byte
     private int NRR_Eliminado;  //4 bytes
     private Nodo[] IndicePrimario;
+    private Nodo[] IndiceSecundario;
 
     public Cine(String NombreArchivo, String Extension) {
         super(NombreArchivo, Extension);
@@ -87,6 +88,14 @@ public class Cine extends Archivo.Archivo {
 
     public void setIndicePrimario(Nodo[] IndicePrimario) {
         this.IndicePrimario = IndicePrimario;
+    }
+
+    public Nodo[] getIndiceSecundario() {
+        return IndiceSecundario;
+    }
+
+    public void setIndiceSecundario(Nodo[] IndiceSecundario) {
+        this.IndiceSecundario = IndiceSecundario;
     }
 
     @Override
@@ -556,7 +565,6 @@ public class Cine extends Archivo.Archivo {
                 try {
                     IndicePrimario[i] = new Nodo(nodo.getClave().trim(), nodo.getReferencia());
                     nodo.Leer();
-                    Leer();
                 } catch (EOFException e) {
                     flag = false;
                 }
@@ -582,7 +590,7 @@ public class Cine extends Archivo.Archivo {
         getNodoP().Cerrar();
         getCab().setModificado((byte) 0);
         getCab().Posicionar();
-        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public int BusquedaBinariaIndice(String clave) throws IOException {
@@ -693,5 +701,62 @@ public class Cine extends Archivo.Archivo {
         System.arraycopy(getIndicePrimario(), pos + 1, nuevoArreglo, pos, getIndicePrimario().length - pos - 1);
 
         setIndicePrimario(nuevoArreglo);
+    }
+
+    public void ReconstruccionIndiceSecundario() throws IOException {
+        int Size = getIndicePrimario().length;
+        IndiceSecundario = new Nodo[Size];
+        int i = 0;
+        while (i < Size) {
+            Posicionar(getIndicePrimario()[i].getReferencia());
+            Leer();
+            IndiceSecundario[i] = new Nodo(getCiudad(), i);
+            System.out.println(IndiceSecundario[i]);
+            i++;
+        }
+        OrdenamientoPorInsecionNodo(IndiceSecundario);
+        ReescrituraIndiceSecundario();
+    }
+
+    public void ReescrituraIndiceSecundario() throws FileNotFoundException, IOException {
+        getFileIndiceSecundario().delete();
+        getFileIndiceSecundario().createNewFile();
+        ReadWriteModeIAIndiceSecundario();
+        getNodoS().Posicionar(0);
+        for (Nodo nodo : getIndiceSecundario()) {
+            getNodoS().setClave(nodo.getClave());
+            getNodoS().setReferencia(nodo.getReferencia());
+            getNodoS().Escribir();
+        }
+        getNodoS().Cerrar();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
+    }
+
+    @Override
+    public void CargarIndiceSecundario() throws IOException {
+        int Size = getIndicePrimario().length;
+        IndiceSecundario = new Nodo[Size];
+        boolean flag = true;
+        int i = 0;
+        Nodo nodo = getNodoS();
+        nodo.Posicionar(0);
+        try {
+            nodo.Leer();
+            while (flag) {
+                try {
+                    IndiceSecundario[i] = new Nodo(nodo.getClave().trim(), nodo.getReferencia());
+                    nodo.Leer();
+                } catch (EOFException e) {
+                    flag = false;
+                }
+                i++;
+            }
+        } catch (EOFException e) {
+            flag = false;
+        }
+        setIndiceSecundario(IndiceSecundario);
+        nodo.Cerrar();
     }
 }
