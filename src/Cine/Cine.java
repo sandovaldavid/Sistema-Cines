@@ -131,6 +131,8 @@ public class Cine extends Archivo.Archivo {
         setDireccion(aux.getDireccion());
         setActivo(aux.getActivo());
         Escribir();
+        Nodo n = new Nodo(aux.getNombre(), getIndicePrimario().length);
+        InsertarNodo(n);
     }
 
     public void PosicionarLugarAdecuadoInsercion() throws IOException {
@@ -634,5 +636,17 @@ public class Cine extends Archivo.Archivo {
         } catch (EOFException e) {
             flag = false;
         }
+    }
+
+    public void InsertarNodo(Nodo nodo) {
+        int pos = PosicionarNuevoNodo(nodo.getClave());
+        Nodo[] nuevaListaindicesPrimarios = new Nodo[getIndicePrimario().length + 1];
+        // Copiamos los elementos desde el arreglo original hasta la posición donde se insertará el nuevo número
+        System.arraycopy(getIndicePrimario(), 0, nuevaListaindicesPrimarios, 0, pos);
+        // Insertamos el nuevo número en la posición adecuada
+        nuevaListaindicesPrimarios[pos] = nodo;
+        // Copiamos los elementos desde la posición de inserción hasta el final del arreglo original
+        System.arraycopy(getIndicePrimario(), pos, nuevaListaindicesPrimarios, pos + 1, getIndicePrimario().length - pos);
+        setIndicePrimario(nuevaListaindicesPrimarios);
     }
 }
