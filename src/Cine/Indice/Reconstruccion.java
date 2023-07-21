@@ -34,15 +34,23 @@ public class Reconstruccion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnReconstruccion = new javax.swing.JButton();
+        btnReconstruccionIP = new javax.swing.JButton();
+        btnReconstruccionIS = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Reconstruccion del Indice");
 
-        btnReconstruccion.setText("Reconstruccion");
-        btnReconstruccion.addActionListener(new java.awt.event.ActionListener() {
+        btnReconstruccionIP.setText("Reconstruccion IP");
+        btnReconstruccionIP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReconstruccionActionPerformed(evt);
+                btnReconstruccionIPActionPerformed(evt);
+            }
+        });
+
+        btnReconstruccionIS.setText("Reconstruccion IS");
+        btnReconstruccionIS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReconstruccionISActionPerformed(evt);
             }
         });
 
@@ -52,30 +60,43 @@ public class Reconstruccion extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addComponent(btnReconstruccion)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReconstruccionIS)
+                    .addComponent(btnReconstruccionIP))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(btnReconstruccion)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(btnReconstruccionIP)
+                .addGap(18, 18, 18)
+                .addComponent(btnReconstruccionIS)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnReconstruccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReconstruccionActionPerformed
+    private void btnReconstruccionIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReconstruccionIPActionPerformed
         try {
             cine.ReconstruccionIndicePrimario();
         } catch (IOException ex) {
             Logger.getLogger(Reconstruccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnReconstruccionActionPerformed
+    }//GEN-LAST:event_btnReconstruccionIPActionPerformed
+
+    private void btnReconstruccionISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReconstruccionISActionPerformed
+        try {
+            cine.ReconstruccionIndiceSecundario();
+        } catch (IOException ex) {
+            Logger.getLogger(Reconstruccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReconstruccionISActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReconstruccion;
+    private javax.swing.JButton btnReconstruccionIP;
+    private javax.swing.JButton btnReconstruccionIS;
     // End of variables declaration//GEN-END:variables
 }
