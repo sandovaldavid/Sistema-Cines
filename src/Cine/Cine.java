@@ -533,17 +533,14 @@ public class Cine extends Archivo.Archivo {
             while (flag) {
                 try {
                     IndicePrimario[i] = new Nodo(nodo.getClave().trim(), nodo.getReferencia());
-                    System.out.println(IndicePrimario[i].toString());
                     nodo.Leer();
                     Leer();
                 } catch (EOFException e) {
                     flag = false;
-                    System.out.println("Fin de Archivo---->");
                 }
                 i++;
             }
         } catch (EOFException e) {
-            System.out.println("No hay nodos en el indice");
             flag = false;
         }
 
@@ -554,7 +551,6 @@ public class Cine extends Archivo.Archivo {
         getFileIndicePrimario().delete();
         getFileIndicePrimario().createNewFile();
         ReadWriteModeIAIndicePrimario();
-        System.out.println(getNodo().getIA());
         getNodo().Posicionar(0);
         for (Nodo nodo : getIndicePrimario()) {
             getNodo().setClave(nodo.getClave());
@@ -611,7 +607,7 @@ public class Cine extends Archivo.Archivo {
                 }
             }
         }
-        return b;
+        return a;
     }
 
     public void ReconstruccionIndicePrimario() throws IOException {
@@ -626,20 +622,17 @@ public class Cine extends Archivo.Archivo {
                 try {
                     if (getActivo() == 1) {
                         IndicePrimario[i] = new Nodo(getNombre(), i);
-                        System.out.println(IndicePrimario[i]);
                     }
                     Leer();
                     i++;
                 } catch (EOFException e) {
                     flag = false;
-                    System.out.println("Fin de archivo");
                 }
             }
             OrdenamientoPorInsecionNodo(IndicePrimario);
             ReescrituraIndice();
         } catch (EOFException e) {
             flag = false;
-            System.out.println("No hay Registros en mi archivo cine");
         }
     }
 }
