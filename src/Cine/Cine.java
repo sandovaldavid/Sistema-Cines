@@ -158,23 +158,16 @@ public class Cine extends Archivo.Archivo {
     }
 
     public Cine[] ListadoSecuencial() throws IOException {
-        int TamañoArreglo = (int) (getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados());
+        int TamañoArreglo = getIndicePrimario().length;
         Cine[] c = new Cine[TamañoArreglo];
         Cine cine;
         int i = 0;
-        boolean flag = true;
-        Posicionar(0);
-        while (flag) {
-            try {
-                Leer();
-                if (getActivo() == 1) {
-                    cine = new Cine(getNombre(), getCiudad(), getDireccion());
-                    c[i] = cine;
-                    i++;
-                }
-            } catch (EOFException ex) {
-                flag = false;
-            }
+        while (i < TamañoArreglo) {
+            Posicionar(getIndicePrimario()[i].getReferencia());
+            Leer();
+            cine = new Cine(getNombre(), getCiudad(), getDireccion());
+            c[i] = cine;
+            i++;
         }
         return c;
     }
@@ -627,14 +620,16 @@ public class Cine extends Archivo.Archivo {
         IndicePrimario = new Nodo[RegistrosActivos];
         Posicionar(0);
         int i = 0;
+        int j = 0;
         try {
             Leer();
             while (flag) {
                 try {
                     if (getActivo() == 1) {
-                        IndicePrimario[i] = new Nodo(getNombre(), i);
+                        IndicePrimario[i] = new Nodo(getNombre(), j);
                         i++;
                     }
+                    j++;
                     Leer();
                 } catch (EOFException e) {
                     flag = false;
