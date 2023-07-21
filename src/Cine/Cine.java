@@ -7,6 +7,7 @@ package Cine;
 import Archivo.Cabecera;
 import Archivo.Nodo;
 import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
@@ -23,10 +24,12 @@ public class Cine extends Archivo.Archivo {
     private String Direccion;   //32 bytes
     private byte Activo;        //1 byte
     private int NRR_Eliminado;  //4 bytes
+    private Nodo[] IndicePrimario;
 
     public Cine(String NombreArchivo, String Extension) {
         super(NombreArchivo, Extension);
         this.NRR_Eliminado = -1;
+        getCab().setTamañoRegistro(getSize());
     }
 
     public Cine(String Nombre, String Ciudad, String Direccion) {
@@ -35,6 +38,7 @@ public class Cine extends Archivo.Archivo {
         this.Direccion = Direccion;
         this.Activo = (byte) 1;
         this.NRR_Eliminado = -1;
+        getCab().setTamañoRegistro(getSize());
     }
 
     public String getNombre() {
@@ -77,12 +81,20 @@ public class Cine extends Archivo.Archivo {
         this.NRR_Eliminado = NRR_Eliminado;
     }
 
+    public Nodo[] getIndicePrimario() {
+        return IndicePrimario;
+    }
+
+    public void setIndicePrimario(Nodo[] IndicePrimario) {
+        this.IndicePrimario = IndicePrimario;
+    }
+
     @Override
     public String toString() {
         return "Cine{" + "Nombre=" + Nombre + ", Ciudad=" + Ciudad + ", Direccion=" + Direccion + ", Activo=" + Activo + '}';
     }
 
-    public int getSize() {
+    public final int getSize() {
         return 81;
     }
 
@@ -506,5 +518,128 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         CrearArchivo();
+    }
+
+    @Override
+    public void CargarIndicePrimario() throws IOException {
+        int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
+        IndicePrimario = new Nodo[RegistrosActivos];
+        boolean flag = true;
+        int i = 0;
+        Nodo nodo = getNodo();
+        nodo.Posicionar(0);
+        try {
+            nodo.Leer();
+            while (flag) {
+                try {
+                    IndicePrimario[i] = new Nodo(nodo.getClave().trim(), nodo.getReferencia());
+                    System.out.println(IndicePrimario[i].toString());
+                    nodo.Leer();
+                    Leer();
+                } catch (EOFException e) {
+                    flag = false;
+                    System.out.println("Fin de Archivo---->");
+                }
+                i++;
+            }
+        } catch (EOFException e) {
+            System.out.println("No hay nodos en el indice");
+            flag = false;
+        }
+
+        nodo.Cerrar();
+    }
+
+    public void ReescrituraIndice() throws FileNotFoundException, IOException {
+        getFileIndicePrimario().delete();
+        getFileIndicePrimario().createNewFile();
+        ReadWriteModeIAIndicePrimario();
+        System.out.println(getNodo().getIA());
+        getNodo().Posicionar(0);
+        for (Nodo nodo : getIndicePrimario()) {
+            getNodo().setClave(nodo.getClave());
+            getNodo().setReferencia(nodo.getReferencia());
+            getNodo().Escribir();
+        }
+        getNodo().Cerrar();
+        getCab().setModificado((byte) 0);
+    }
+
+    public int BusquedaBinariaIndice(String clave) throws IOException {
+        int pos = -1;
+        int a = 0;
+        int b = getIndicePrimario().length - 1;
+        while (a <= b && pos == -1) {
+            int i = Math.abs((a + b) / 2);
+            Nodo nodo = getIndicePrimario()[i];
+            if (clave.trim().equals(nodo.getClave())) {
+                pos = i;
+            } else {
+                if (clave.compareTo(nodo.getClave()) < 0) {
+                    b = i - 1;
+                } else {
+                    a = i + 1;
+                }
+            }
+        }
+        return getIndicePrimario()[pos].getReferencia();
+    }
+
+    public int BusquedaPorIndice(String clave) throws IOException {
+        int pos = BusquedaBinariaIndice(clave);
+        if (pos != -1) {
+            Posicionar(pos);
+            Leer();
+        }
+        return pos;
+    }
+
+    public int PosicionarNuevoNodo(String clave) {
+        int pos = -1;
+        int a = 0;
+        int b = getIndicePrimario().length - 1;
+        while (a <= b && pos == -1) {
+            int i = Math.abs((a + b) / 2);
+            Nodo nodo = getIndicePrimario()[i];
+            if (clave.trim().equals(nodo.getClave())) {
+                pos = i;
+            } else {
+                if (clave.compareTo(nodo.getClave()) < 0) {
+                    b = i - 1;
+                } else {
+                    a = i + 1;
+                }
+            }
+        }
+        return b;
+    }
+
+    public void ReconstruccionIndicePrimario() throws IOException {
+        int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
+        boolean flag = true;
+        IndicePrimario = new Nodo[RegistrosActivos];
+        Posicionar(0);
+        int i = 0;
+        try {
+            Leer();
+            while (flag) {
+                try {
+                    if (getActivo() == 1) {
+                        IndicePrimario[i] = new Nodo(getNombre(), i);
+                        System.out.println(IndicePrimario[i]);
+                    }
+                    Leer();
+                    i++;
+                } catch (EOFException e) {
+                    flag = false;
+                    System.out.println("Fin de archivo");
+                }
+            }
+            OrdenamientoPorInsecionNodo(IndicePrimario);
+            ReescrituraIndice();
+        } catch (EOFException e) {
+            flag = false;
+            System.out.println("No hay Registros en mi archivo cine");
+        }
     }
 }
