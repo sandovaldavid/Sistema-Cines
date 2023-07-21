@@ -20,18 +20,24 @@ public class Archivo {
     private String extension;
     private File File;
     private File FileIndicePrimario;
+    private File FileIndiceSecundario;
     private RandomAccessFile IA;
     private RandomAccessFile IAIndicePrimario;
+    private RandomAccessFile IAIndiceSecundario;
     private Cabecera cab = new Cabecera();
-    private Nodo nodo;
+    private Nodo nodoP;
+    private Nodo nodoS;
     private Nodo[] IndicePrimario;
+    private Nodo[] IndiceSecundario;
 
     public Archivo(String NombreArchivo, String extension) {
         this.nombreArchivo = NombreArchivo;
         this.extension = extension;
         this.File = new File(this.ruta + NombreArchivo + "." + extension);
         this.FileIndicePrimario = new File(ruta + "IndicePrimario" + nombreArchivo + ".ind");
-        this.nodo = new Nodo();
+        this.FileIndiceSecundario = new File(ruta + "IndiceSecundario" + nombreArchivo + ".ind");
+        this.nodoP = new Nodo();
+        this.nodoS = new Nodo();
     }
 
     public Archivo() {
@@ -88,12 +94,12 @@ public class Archivo {
         IA = new RandomAccessFile(getFile(), "rw");
     }
 
-    public Nodo getNodo() {
-        return nodo;
+    public Nodo getNodoP() {
+        return nodoP;
     }
 
-    public void setNodo(Nodo nodo) {
-        this.nodo = nodo;
+    public void setNodoP(Nodo nodoP) {
+        this.nodoP = nodoP;
     }
 
     public Nodo[] getIndicePrimario() {
@@ -122,18 +128,66 @@ public class Archivo {
 
     public void ReadModeIAIndicePrimario() throws FileNotFoundException, IOException {
         if (getIAIndicePrimario() != null) {
-            getNodo().Cerrar();
+            getNodoP().Cerrar();
         }
         IAIndicePrimario = new RandomAccessFile(getFileIndicePrimario(), "r");
-        getNodo().setIA(getIAIndicePrimario());
+        getNodoP().setIA(getIAIndicePrimario());
     }
 
     public void ReadWriteModeIAIndicePrimario() throws FileNotFoundException, IOException {
         if (getIAIndicePrimario() != null) {
-            getNodo().Cerrar();
+            getNodoP().Cerrar();
         }
         IAIndicePrimario = new RandomAccessFile(getFileIndicePrimario(), "rw");
-        getNodo().setIA(getIAIndicePrimario());
+        getNodoP().setIA(getIAIndicePrimario());
+    }
+
+    public Nodo getNodoS() {
+        return nodoS;
+    }
+
+    public void setNodoS(Nodo nodoS) {
+        this.nodoS = nodoS;
+    }
+
+    public File getFileIndiceSecundario() {
+        return FileIndiceSecundario;
+    }
+
+    public void setFileIndiceSecundario(File FileIndiceSecundario) {
+        this.FileIndiceSecundario = FileIndiceSecundario;
+    }
+
+    public RandomAccessFile getIAIndiceSecundario() {
+        return IAIndiceSecundario;
+    }
+
+    public void setIAIndiceSecundario(RandomAccessFile IAIndiceSecundario) {
+        this.IAIndiceSecundario = IAIndiceSecundario;
+    }
+
+    public Nodo[] getIndiceSecundario() {
+        return IndiceSecundario;
+    }
+
+    public void setIndiceSecundario(Nodo[] IndiceSecundario) {
+        this.IndiceSecundario = IndiceSecundario;
+    }
+
+    public void ReadModeIAIndiceSecundario() throws FileNotFoundException, IOException {
+        if (getIAIndiceSecundario() != null) {
+            getNodoS().Cerrar();
+        }
+        IAIndiceSecundario = new RandomAccessFile(getFileIndiceSecundario(), "r");
+        getNodoS().setIA(getIAIndiceSecundario());
+    }
+
+    public void ReadWriteModeIAIndiceSecundario() throws FileNotFoundException, IOException {
+        if (getIAIndiceSecundario() != null) {
+            getNodoS().Cerrar();
+        }
+        IAIndiceSecundario = new RandomAccessFile(getFileIndiceSecundario(), "rw");
+        getNodoS().setIA(getIAIndiceSecundario());
     }
 
     public void CrearArchivo() throws IOException {
@@ -183,9 +237,12 @@ public class Archivo {
 
         if (getFileIndicePrimario().exists()) {
             ReadModeIAIndicePrimario();
+            ReadModeIAIndiceSecundario();
         } else {
             getFileIndicePrimario().createNewFile();
+            getFileIndiceSecundario().createNewFile();
             ReadWriteModeIAIndicePrimario();
+            ReadWriteModeIAIndiceSecundario();
         }
     }
 
