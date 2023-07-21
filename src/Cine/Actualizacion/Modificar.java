@@ -144,11 +144,7 @@ public class Modificar extends javax.swing.JInternalFrame {
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
-            if (cine.getCab().getOrdenado() == 1) {
-                respuesta = cine.BusquedaBinaria(txtNombre.getText());
-            } else {
-                respuesta = cine.BusquedaSecuencial(txtNombre.getText());
-            }
+            respuesta = cine.BusquedaPorIndice(txtNombre.getText());
             if (respuesta != -1) {
                 txtNombre.setEditable(false);
                 txtCiudad.setText(cine.getCiudad());
@@ -170,7 +166,7 @@ public class Modificar extends javax.swing.JInternalFrame {
             cine.setNombre(txtNombre.getText());
             cine.setDireccion(txtDireccion.getText());
             cine.setCiudad(txtCiudad.getText());
-            cine.Modificar(respuesta);
+            cine.Modificar(cine.getIndicePrimario()[respuesta].getReferencia());
             txtNombre.setText("");
             txtCiudad.setText("");
             txtDireccion.setText("");

@@ -142,11 +142,7 @@ public class Consultar extends javax.swing.JInternalFrame {
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
-            if (cine.getCab().getOrdenado() == 1) {
-                respuesta = cine.BusquedaBinaria(txtNombre.getText());
-            } else {
-                respuesta = cine.BusquedaSecuencial(txtNombre.getText());
-            }
+            respuesta = cine.BusquedaPorIndice(txtNombre.getText());
             if (respuesta != -1) {
                 txtNombre.setEditable(false);
                 txtCiudad.setText(cine.getCiudad());
