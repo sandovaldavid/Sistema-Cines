@@ -20,6 +20,7 @@ public class Cabecera {
     private byte compactado;                    //1 byte    1 --> compactado || 0 --> no compactado
     private byte Ordenado;                      //1 byte    1 --> ordenado || 0 --> ordenado
     private int NRR_Eliminado;                  //4 bytes
+    private byte Modificado;                    //1 byte    1 --> Modificado || 0 --> Sin cambios
 
     public Cabecera() {
         this.numeroRegistros = 0;
@@ -28,6 +29,7 @@ public class Cabecera {
         this.compactado = 0;
         this.Ordenado = 0;
         this.NRR_Eliminado = -1;
+        this.Modificado = 0;
     }
 
     public RandomAccessFile getIA() {
@@ -86,13 +88,21 @@ public class Cabecera {
         this.NRR_Eliminado = NRR_Eliminado;
     }
 
+    public byte getModificado() {
+        return Modificado;
+    }
+
+    public void setModificado(byte Modificado) {
+        this.Modificado = Modificado;
+    }
+
     @Override
     public String toString() {
-        return "Cabecera{" + "IA=" + IA + ", numeroRegistros=" + numeroRegistros + ", numeroRegistrosEliminados=" + numeroRegistrosEliminados + ", tama\u00f1oRegistro=" + tamañoRegistro + ", compactado=" + compactado + ", Ordenado=" + Ordenado + ", NRR_Eliminado=" + NRR_Eliminado + '}';
+        return "Cabecera{" + "IA=" + IA + ", numeroRegistros=" + numeroRegistros + ", numeroRegistrosEliminados=" + numeroRegistrosEliminados + ", tama\u00f1oRegistro=" + tamañoRegistro + ", compactado=" + compactado + ", Ordenado=" + Ordenado + ", NRR_Eliminado=" + NRR_Eliminado + ", Modificado=" + Modificado + '}';
     }
 
     public int getSize() {
-        return 18;
+        return 19;
     }
 
     public void Posicionar() throws IOException {
@@ -106,6 +116,7 @@ public class Cabecera {
         getIA().writeByte(getCompactado());
         getIA().writeByte(getOrdenado());
         getIA().writeInt(getNRR_Eliminado());
+        getIA().writeByte(getModificado());
     }
 
     public void Leer() throws IOException {
@@ -115,5 +126,6 @@ public class Cabecera {
         setCompactado(getIA().readByte());
         setOrdenado(getIA().readByte());
         setNRR_Eliminado(getIA().readInt());
+        setModificado(getIA().readByte());
     }
 }
