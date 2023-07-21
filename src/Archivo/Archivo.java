@@ -30,7 +30,7 @@ public class Archivo {
         this.nombreArchivo = NombreArchivo;
         this.extension = extension;
         this.File = new File(this.ruta + NombreArchivo + "." + extension);
-        this.FileIndicePrimario = new File(ruta + nombreArchivo + "Primario" + ".ind");
+        this.FileIndicePrimario = new File(ruta + "IndicePrimario" + nombreArchivo + ".ind");
         this.nodo = new Nodo();
     }
 
