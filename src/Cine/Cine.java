@@ -202,9 +202,9 @@ public class Cine extends Archivo.Archivo {
     }
 
     public void EliminarRegistro(int respuesta) throws IOException {
-        setActivo((byte) 0);
 //        Posicionar(respuesta);
         PosicionarLugarAdecuadoEliminacion(respuesta);
+        setActivo((byte) 0);
         Escribir();
         getCab().setNumeroRegistrosEliminados(getCab().getNumeroRegistrosEliminados() + 1);
         getCab().Posicionar();
@@ -617,6 +617,7 @@ public class Cine extends Archivo.Archivo {
 
     public void ReconstruccionIndicePrimario() throws IOException {
         int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
+        System.out.println(RegistrosActivos + "Registros activos");
         boolean flag = true;
         IndicePrimario = new Nodo[RegistrosActivos];
         Posicionar(0);
@@ -627,9 +628,9 @@ public class Cine extends Archivo.Archivo {
                 try {
                     if (getActivo() == 1) {
                         IndicePrimario[i] = new Nodo(getNombre(), i);
+                        i++;
                     }
                     Leer();
-                    i++;
                 } catch (EOFException e) {
                     flag = false;
                 }
