@@ -143,6 +143,21 @@
                 </Menu>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="IndiceCine">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Indices"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="ReconstruccionCine">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Reconstruccion"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReconstruccionCineActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">

@@ -11,6 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Indice.Reconstruccion;
 import Cine.Mantenimiento.ClasificacionIndirecciones;
 import Cine.Mantenimiento.ClasificacionNodos;
 import Cine.Mantenimiento.ClasificacionRAM;
@@ -112,6 +113,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ClasificacionRAM = new javax.swing.JMenuItem();
         ClasificacionNodos = new javax.swing.JMenuItem();
         ClasificacionIndirecciones = new javax.swing.JMenuItem();
+        IndiceCine = new javax.swing.JMenu();
+        ReconstruccionCine = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -255,6 +258,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(MantenimientoCine);
 
+        IndiceCine.setText("Indices");
+
+        ReconstruccionCine.setText("Reconstruccion");
+        ReconstruccionCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReconstruccionCineActionPerformed(evt);
+            }
+        });
+        IndiceCine.add(ReconstruccionCine);
+
+        jMenu1.add(IndiceCine);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Sala");
@@ -352,6 +367,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_ClasificacionIndireccionesActionPerformed
 
+    private void ReconstruccionCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReconstruccionCineActionPerformed
+        Reconstruccion ic = new Reconstruccion();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ReconstruccionCineActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -364,7 +385,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             v.setLocationRelativeTo(null);
 
             archivos = new Archivo[4];
-            setCine(new Cine("Cines", "dat"));
+            cine = new Cine("Cines", "dat");
             sala = new Sala("Salas", "dat");
             pelicula = new Pelicula("Peliculas", "dat");
             proyeccion = new Proyeccion("Proyecciones", "dat");
@@ -378,27 +399,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             while (i < 1) {
                 try {
                     archivos[i].CrearArchivo();
-                    switch (i) {
-                        case 0 -> {
-                            archivos[i].getCab().setTamañoRegistro(cine.getSize());
-                            break;
-                        }
-//                        case 1 -> {
-//                            archivos[i].getCab().setTamañoRegistro(sala.getSize());
-//                            break;
-//                        }
-//                        case 2 -> {
-//                            [i].getCab().setTamañoRegistro(pelicula.getSize());
-//                            break;
-//                        }
-//                        case 3 -> {
-//                            archivos[i].getCab().setTamañoRegistro(proyeccion.getSize());
-//                            break;
-//                        }
-                    }
-                    archivos[i].getCab().setIA(archivos[i].getIA());
-                    archivos[i].getCab().Posicionar();
-                    archivos[i].getCab().Escribir();
+                    archivos[i].CrearArchivoIdices();
+                    archivos[i].CargarIndicePrimario();
                     i++;
                 } catch (IOException ex) {
                     Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -419,8 +421,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem EliminarCine;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem GrafmentacionCine;
+    private javax.swing.JMenu IndiceCine;
     private javax.swing.JMenuItem ListarCine;
     private javax.swing.JMenu MantenimientoCine;
+    private javax.swing.JMenuItem ReconstruccionCine;
     private javax.swing.JMenuItem RegistrarCine;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JMenu jMenu1;
