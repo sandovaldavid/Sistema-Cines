@@ -19,14 +19,19 @@ public class Archivo {
     private String nombreArchivo;
     private String extension;
     private File File;
+    private File FileIndicePrimario;
     private RandomAccessFile IA;
-    private Cabecera cab;
+    private RandomAccessFile IAIndicePrimario;
+    private Cabecera cab = new Cabecera();
+    private Nodo nodo;
+    private Nodo[] IndicePrimario;
 
     public Archivo(String NombreArchivo, String extension) {
         this.nombreArchivo = NombreArchivo;
         this.extension = extension;
         this.File = new File(this.ruta + NombreArchivo + "." + extension);
-        cab = new Cabecera();
+        this.FileIndicePrimario = new File(ruta + nombreArchivo + "Primario" + ".ind");
+        this.nodo = new Nodo();
     }
 
     public Archivo() {
@@ -83,6 +88,54 @@ public class Archivo {
         IA = new RandomAccessFile(getFile(), "rw");
     }
 
+    public Nodo getNodo() {
+        return nodo;
+    }
+
+    public void setNodo(Nodo nodo) {
+        this.nodo = nodo;
+    }
+
+    public Nodo[] getIndicePrimario() {
+        return IndicePrimario;
+    }
+
+    public void setIndicePrimario(Nodo[] IndicePrimario) {
+        this.IndicePrimario = IndicePrimario;
+    }
+
+    public File getFileIndicePrimario() {
+        return FileIndicePrimario;
+    }
+
+    public void setFileIndicePrimario(File FileIndicePrimario) {
+        this.FileIndicePrimario = FileIndicePrimario;
+    }
+
+    public RandomAccessFile getIAIndicePrimario() {
+        return IAIndicePrimario;
+    }
+
+    public void setIAIndicePrimario(RandomAccessFile IAIndicePrimario) {
+        this.IAIndicePrimario = IAIndicePrimario;
+    }
+
+    public void ReadModeIAIndicePrimario() throws FileNotFoundException, IOException {
+        if (getIAIndicePrimario() != null) {
+            getNodo().Cerrar();
+        }
+        IAIndicePrimario = new RandomAccessFile(getFileIndicePrimario(), "r");
+        getNodo().setIA(getIAIndicePrimario());
+    }
+
+    public void ReadWriteModeIAIndicePrimario() throws FileNotFoundException, IOException {
+        if (getIAIndicePrimario() != null) {
+            getNodo().Cerrar();
+        }
+        IAIndicePrimario = new RandomAccessFile(getFileIndicePrimario(), "rw");
+        getNodo().setIA(getIAIndicePrimario());
+    }
+
     public void CrearArchivo() throws IOException {
         if (!File.exists()) {
             File.createNewFile();
@@ -96,7 +149,6 @@ public class Archivo {
             cab.Posicionar();
             cab.Leer();
         }
-
     }
 
     public void Cerrar() throws IOException {
@@ -126,4 +178,19 @@ public class Archivo {
     public long FragmentacionInterna() throws IOException {
         return -1;
     }
+
+    public void CrearArchivoIdices() throws IOException {
+
+        if (getFileIndicePrimario().exists()) {
+            ReadModeIAIndicePrimario();
+        } else {
+            getFileIndicePrimario().createNewFile();
+            ReadWriteModeIAIndicePrimario();
+        }
+    }
+
+    public void CargarIndicePrimario() throws IOException {
+
+    }
+
 }
