@@ -36,6 +36,9 @@ public class Reconstruccion extends javax.swing.JInternalFrame {
 
         btnReconstruccion = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Reconstruccion del Indice");
+
         btnReconstruccion.setText("Reconstruccion");
         btnReconstruccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,16 +51,16 @@ public class Reconstruccion extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
+                .addGap(79, 79, 79)
                 .addComponent(btnReconstruccion)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(30, 30, 30)
                 .addComponent(btnReconstruccion)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
