@@ -1,14 +1,18 @@
 package Archivo;
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
-public class Nodo extends Archivo {
+public class Nodo {
 
-    private String clave;
-    private int referencia; //.ind
+    // [Nombre indice].ind
+    private RandomAccessFile IA;
+    private String clave;   //22 bytes
+    private int referencia; //4 bytes
 
-    public Nodo(String nombreArchivo, String extension) {
-        super(nombreArchivo, extension);
+    public Nodo() {
+        this.clave = "";
+        this.referencia = -1;
     }
 
     public Nodo(String clave, int referencia) {
@@ -32,8 +36,16 @@ public class Nodo extends Archivo {
         this.referencia = referencia;
     }
 
-    public int tamañoRegistro() {
-        return 20 + 2 + 8;
+    public RandomAccessFile getIA() {
+        return IA;
+    }
+
+    public void setIA(RandomAccessFile IA) {
+        this.IA = IA;
+    }
+
+    public int getSize() {
+        return 26;
     }
 
     @Override
@@ -41,10 +53,23 @@ public class Nodo extends Archivo {
         return "Nodo{" + "clave=" + clave + ", referencia=" + referencia + '}';
     }
 
-    @Override
     public void Posicionar(int i) throws IOException {
-        long NRR = tamañoRegistro() * i;
+        int NRR = getSize() * i;
         getIA().seek(NRR);
+    }
+
+    public void Cerrar() throws IOException {
+        getIA().close();
+    }
+
+    public void Escribir() throws IOException {
+        getIA().writeUTF(String.format("%20.20s", getClave()));
+        getIA().writeInt(getReferencia());
+    }
+
+    public void Leer() throws IOException {
+        setClave(getIA().readUTF());
+        setReferencia(getIA().readInt());
     }
 
 }
