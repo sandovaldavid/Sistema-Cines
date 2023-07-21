@@ -215,6 +215,14 @@ public class Cine extends Archivo.Archivo {
         getCab().Escribir();
     }
 
+    public void PosicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
+        setNRR_Eliminado(getCab().getNRR_Eliminado());
+        getCab().setNRR_Eliminado(getIndicePrimario()[NRR_Eliminado].getReferencia());
+        getCab().Posicionar();
+        getCab().Escribir();
+        Posicionar(getIndicePrimario()[NRR_Eliminado].getReferencia());
+    }
+
     public void Modificar(int respuesta) throws IOException {
         Posicionar(respuesta);
         Escribir();
@@ -363,14 +371,6 @@ public class Cine extends Archivo.Archivo {
         Cerrar();
         c.Cerrar();
         CrearArchivo();
-    }
-
-    public void PosicionarLugarAdecuadoEliminacion(int NRR_Eliminado) throws IOException {
-        setNRR_Eliminado(getCab().getNRR_Eliminado());
-        getCab().setNRR_Eliminado(NRR_Eliminado);
-        getCab().Posicionar();
-        getCab().Escribir();
-        Posicionar(NRR_Eliminado);
     }
 
     public int BusquedaBinaria(String nombreCine) throws IOException {
@@ -568,6 +568,8 @@ public class Cine extends Archivo.Archivo {
         }
         getNodo().Cerrar();
         getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Posicionar();
     }
 
     public int BusquedaBinariaIndice(String clave) throws IOException {
@@ -587,13 +589,13 @@ public class Cine extends Archivo.Archivo {
                 }
             }
         }
-        return getIndicePrimario()[pos].getReferencia();
+        return pos;
     }
 
     public int BusquedaPorIndice(String clave) throws IOException {
         int pos = BusquedaBinariaIndice(clave);
         if (pos != -1) {
-            Posicionar(pos);
+            Posicionar(getIndicePrimario()[pos].getReferencia());
             Leer();
         }
         return pos;
@@ -621,7 +623,6 @@ public class Cine extends Archivo.Archivo {
 
     public void ReconstruccionIndicePrimario() throws IOException {
         int RegistrosActivos = getCab().getNumeroRegistros() - getCab().getNumeroRegistrosEliminados();
-        System.out.println(RegistrosActivos + "Registros activos");
         boolean flag = true;
         IndicePrimario = new Nodo[RegistrosActivos];
         Posicionar(0);
@@ -639,11 +640,11 @@ public class Cine extends Archivo.Archivo {
                     flag = false;
                 }
             }
-            OrdenamientoPorInsecionNodo(IndicePrimario);
-            ReescrituraIndice();
         } catch (EOFException e) {
             flag = false;
         }
+        OrdenamientoPorInsecionNodo(IndicePrimario);
+        ReescrituraIndice();
     }
 
     public void InsertarNodo(Nodo nodo) {
@@ -671,9 +672,5 @@ public class Cine extends Archivo.Archivo {
         System.arraycopy(getIndicePrimario(), pos + 1, nuevoArreglo, pos, getIndicePrimario().length - pos - 1);
 
         setIndicePrimario(nuevoArreglo);
-        System.out.println("Nodo eliminado");
-        for (Nodo n : getIndicePrimario()) {
-            System.out.println(n.toString());
-        }
     }
 }
