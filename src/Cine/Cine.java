@@ -315,6 +315,10 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         CrearArchivo();
+        ReconstruccionIndicePrimario();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public void CompactacionInSitu() throws IOException {
@@ -364,6 +368,10 @@ public class Cine extends Archivo.Archivo {
         Cerrar();
         c.Cerrar();
         CrearArchivo();
+        ReconstruccionIndicePrimario();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public int BusquedaBinaria(String nombreCine) throws IOException {
@@ -428,6 +436,10 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         CrearArchivo();
+        ReconstruccionIndicePrimario();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public void OrdenamientoPorInsecionNodo(Nodo[] listanodos) {
@@ -470,6 +482,10 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         CrearArchivo();
+        ReconstruccionIndicePrimario();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     public void ClasificacionIndirecciones() throws IOException {
@@ -520,6 +536,10 @@ public class Cine extends Archivo.Archivo {
         getFile().delete();
         c.getFile().renameTo(getFile());
         CrearArchivo();
+        ReconstruccionIndicePrimario();
+        getCab().setModificado((byte) 0);
+        getCab().Posicionar();
+        getCab().Escribir();
     }
 
     @Override
