@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author David Sandoval Salvador
  */
 public class Eliminar extends javax.swing.JInternalFrame {
-    
+
     Cine cine = getCine();
     int respuesta = -1;
 
@@ -146,11 +146,8 @@ public class Eliminar extends javax.swing.JInternalFrame {
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         try {
-            if (cine.getCab().getOrdenado() == 1) {
-                respuesta = cine.BusquedaBinaria(txtNombre.getText());
-            } else {
-                respuesta = cine.BusquedaSecuencial(txtNombre.getText());
-            }
+            respuesta = cine.BusquedaPorIndice(txtNombre.getText());
+            System.out.println(respuesta);
             if (respuesta != -1) {
                 txtNombre.setEditable(false);
                 txtCiudad.setText(cine.getCiudad());
@@ -163,7 +160,7 @@ public class Eliminar extends javax.swing.JInternalFrame {
             Logger.getLogger(Eliminar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnVerificarActionPerformed
-    
+
     public void EliminarDatos() throws IOException {
         int res = JOptionPane.showConfirmDialog(this, "¿Seguro de eliminar el registro?");
         if (res == 0) {
