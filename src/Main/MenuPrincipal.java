@@ -11,6 +11,7 @@ import Cine.Actualizacion.Listado;
 import Cine.Actualizacion.Modificar;
 import Cine.Actualizacion.Registrar;
 import Cine.Cine;
+import Cine.Indice.ListarIndicePrimario;
 import Cine.Indice.Reconstruccion;
 import Cine.Mantenimiento.ClasificacionIndirecciones;
 import Cine.Mantenimiento.ClasificacionNodos;
@@ -115,6 +116,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ClasificacionIndirecciones = new javax.swing.JMenuItem();
         IndiceCine = new javax.swing.JMenu();
         ReconstruccionCine = new javax.swing.JMenuItem();
+        ListarIndicePrimarioCine = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -132,6 +134,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de salas de cine");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Escritorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -268,6 +275,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         IndiceCine.add(ReconstruccionCine);
 
+        ListarIndicePrimarioCine.setText("Listar Indice Primario");
+        ListarIndicePrimarioCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarIndicePrimarioCineActionPerformed(evt);
+            }
+        });
+        IndiceCine.add(ListarIndicePrimarioCine);
+
         jMenu1.add(IndiceCine);
 
         jMenuBar1.add(jMenu1);
@@ -373,6 +388,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ic.show();
     }//GEN-LAST:event_ReconstruccionCineActionPerformed
 
+    private void ListarIndicePrimarioCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarIndicePrimarioCineActionPerformed
+        ListarIndicePrimario ic = new ListarIndicePrimario();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_ListarIndicePrimarioCineActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            if (getCine().getCab().getModificado() == 1) {
+                getCine().ReconstruccionIndicePrimario();
+                System.out.println("Indice Modificado guardado Guardado");
+            } else {
+                System.out.println("No hay cambios en el indice.");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -423,6 +457,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem GrafmentacionCine;
     private javax.swing.JMenu IndiceCine;
     private javax.swing.JMenuItem ListarCine;
+    private javax.swing.JMenuItem ListarIndicePrimarioCine;
     private javax.swing.JMenu MantenimientoCine;
     private javax.swing.JMenuItem ReconstruccionCine;
     private javax.swing.JMenuItem RegistrarCine;
