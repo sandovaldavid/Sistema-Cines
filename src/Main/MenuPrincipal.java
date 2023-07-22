@@ -13,6 +13,7 @@ import Cine.Actualizacion.Registrar;
 import Cine.Cine;
 import Cine.Indice.ListarIndice;
 import Cine.Indice.Reconstruccion;
+import Cine.Indice.RecuperarRegistros;
 import Cine.Mantenimiento.ClasificacionIndirecciones;
 import Cine.Mantenimiento.ClasificacionNodos;
 import Cine.Mantenimiento.ClasificacionRAM;
@@ -117,6 +118,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         IndiceCine = new javax.swing.JMenu();
         ReconstruccionCine = new javax.swing.JMenuItem();
         ListarIndiceCine = new javax.swing.JMenuItem();
+        RecuperarRegistrosCine = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -283,6 +285,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         IndiceCine.add(ListarIndiceCine);
 
+        RecuperarRegistrosCine.setText("Recuperar Registros");
+        RecuperarRegistrosCine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecuperarRegistrosCineActionPerformed(evt);
+            }
+        });
+        IndiceCine.add(RecuperarRegistrosCine);
+
         jMenu1.add(IndiceCine);
 
         jMenuBar1.add(jMenu1);
@@ -408,6 +418,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void RecuperarRegistrosCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecuperarRegistrosCineActionPerformed
+        RecuperarRegistros ic = new RecuperarRegistros();
+        Escritorio.add(ic);
+        ic.show();
+    }//GEN-LAST:event_RecuperarRegistrosCineActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -462,6 +478,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ListarIndiceCine;
     private javax.swing.JMenu MantenimientoCine;
     private javax.swing.JMenuItem ReconstruccionCine;
+    private javax.swing.JMenuItem RecuperarRegistrosCine;
     private javax.swing.JMenuItem RegistrarCine;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JMenu jMenu1;
