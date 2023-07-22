@@ -759,4 +759,62 @@ public class Cine extends Archivo.Archivo {
         setIndiceSecundario(IndiceSecundario);
         nodo.Cerrar();
     }
+
+    public int BusquedaBinariaIndiceSecundario(String clave) throws IOException {
+        int pos = -1;
+        int a = 0;
+        int b = getIndiceSecundario().length - 1;
+        while (a <= b && pos == -1) {
+            int i = Math.abs((a + b) / 2);
+            Nodo nodo = getIndiceSecundario()[i];
+            if (clave.trim().equals(nodo.getClave())) {
+                pos = i;
+            } else {
+                if (clave.compareTo(nodo.getClave()) < 0) {
+                    b = i - 1;
+                } else {
+                    a = i + 1;
+                }
+            }
+        }
+        return pos;
+    }
+
+    public void RecuperacionDeRegistros(String clave) throws IOException {
+        boolean flag = true;
+        int pos = BusquedaBinariaIndiceSecundario(clave);
+        System.out.println("pos: " + pos);
+        int i = pos;
+        if (pos != -1) {
+            do {
+                if (clave.compareTo(getIndiceSecundario()[i].getClave()) == 0 && pos > 0) {
+                    pos--;
+                }
+                i--;
+            } while (i >= 0);
+
+            do {
+                int posIP = getIndiceSecundario()[pos].getReferencia();
+                System.out.println("Primer NodoS con la clave: " + clave + " --> " + getIndiceSecundario()[pos].toString());
+                System.out.println("NodoP: " + " --> " + getIndicePrimario()[posIP].toString());
+                int posA = -1;
+                try {
+                    posA = getIndicePrimario()[posIP].getReferencia();
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    flag = false;
+                }
+
+                if (flag) {
+                    Posicionar(posA);
+                    Leer();
+                    System.out.println("Cine: " + getNombre() + ", " + getCiudad() + ", " + getDireccion());
+                }
+
+                pos++;
+
+            } while (clave.compareTo(getIndiceSecundario()[pos].getClave()) == 0);
+        } else {
+            System.out.println("No se encontro el Nodo Secundario");
+        }
+    }
 }
