@@ -82,18 +82,22 @@ public class Cine extends Archivo.Archivo {
         this.NRR_Eliminado = NRR_Eliminado;
     }
 
+    @Override
     public Nodo[] getIndicePrimario() {
         return IndicePrimario;
     }
 
+    @Override
     public void setIndicePrimario(Nodo[] IndicePrimario) {
         this.IndicePrimario = IndicePrimario;
     }
 
+    @Override
     public Nodo[] getIndiceSecundario() {
         return IndiceSecundario;
     }
 
+    @Override
     public void setIndiceSecundario(Nodo[] IndiceSecundario) {
         this.IndiceSecundario = IndiceSecundario;
     }
@@ -135,6 +139,8 @@ public class Cine extends Archivo.Archivo {
         //Posicionar(getCab().getNumeroRegistros());
         Cine aux = new Cine(getNombre(), getCiudad(), getDireccion());
         Nodo n = new Nodo(aux.getNombre(), -1);
+        Nodo ns = new Nodo(aux.getCiudad(), -1);
+        InsertarNodoSecundario(ns);
         InsertarNodo(n);
         PosicionarLugarAdecuadoInsercion();
         setNombre(aux.getNombre());
@@ -703,6 +709,7 @@ public class Cine extends Archivo.Archivo {
         setIndicePrimario(nuevoArreglo);
     }
 
+    //INDICE SECUNDARIO
     public void ReconstruccionIndiceSecundario() throws IOException {
         int Size = getIndicePrimario().length;
         IndiceSecundario = new Nodo[Size];
@@ -817,4 +824,52 @@ public class Cine extends Archivo.Archivo {
             System.out.println("No se encontro el Nodo Secundario");
         }
     }
+
+    public void InsertarNodoSecundario(Nodo nodo) {
+        if (getCab().getNRR_Eliminado() == -1) {
+            nodo.setReferencia(getCab().getNumeroRegistros());
+        } else {
+            nodo.setReferencia(getCab().getNRR_Eliminado());
+        }
+
+        int pos = PosicionarNuevoNodoSecundario(nodo.getClave());
+        Nodo[] nuevaListaindicesSecundarios = new Nodo[getIndiceSecundario().length + 1];
+        // Copiamos los elementos desde el arreglo original hasta la posición donde se insertará el nuevo número
+        System.arraycopy(getIndiceSecundario(), 0, nuevaListaindicesSecundarios, 0, pos);
+        // Insertamos el nuevo número en la posición adecuada
+        nuevaListaindicesSecundarios[pos] = nodo;
+        // Copiamos los elementos desde la posición de inserción hasta el final del arreglo original
+        System.arraycopy(getIndiceSecundario(), pos, nuevaListaindicesSecundarios, pos + 1, getIndiceSecundario().length - pos);
+        setIndiceSecundario(nuevaListaindicesSecundarios);
+    }
+
+    public int PosicionarNuevoNodoSecundario(String clave) {
+        int pos = -1;
+        int a = 0;
+        int b = getIndiceSecundario().length - 1;
+        while (a <= b && pos == -1) {
+            int i = Math.abs((a + b) / 2);
+            Nodo nodo = getIndiceSecundario()[i];
+            if (clave.trim().equals(nodo.getClave())) {
+                pos = i;
+            } else {
+                if (clave.compareTo(nodo.getClave()) < 0) {
+                    b = i - 1;
+                } else {
+                    a = i + 1;
+                }
+            }
+        }
+        return a;
+    }
+
+    public int BusquedaPorIndiceSecundario(String clave) throws IOException {
+        int pos = BusquedaBinariaIndiceSecundario(clave);
+        if (pos != -1) {
+            Posicionar(getIndicePrimario()[getIndiceSecundario()[pos].getReferencia()].getReferencia());
+            Leer();
+        }
+        return pos;
+    }
+
 }
